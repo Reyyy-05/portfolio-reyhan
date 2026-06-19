@@ -1,0 +1,40 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import { featuredProjects, otherProjects } from '../data/projects';
+---
+
+<section id="work" class="py-20 md:py-28 relative">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="mb-12 md:mb-16 reveal">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-3">// Selected Work</p>
+      <h2 class="text-3xl md:text-5xl font-semibold tracking-tight text-text font-display">
+        Featured Projects
+      </h2>
+      <p class="text-base text-text-muted mt-4 max-w-2xl">
+        Proyek pilihan yang menunjukkan kemampuan membangun produk digital lintas web, mobile, dan data systems.
+      </p>
+    </div>
+
+    <!-- Featured Projects Grid -->
+    <div class="grid md:grid-cols-2 gap-5 mb-16 reveal-stagger">
+      {featuredProjects.map((project) => (
+        <ProjectCard project={project} featured={true} />
+      ))}
+    </div>
+
+    <!-- Other Projects -->
+    <div class="reveal">
+      <div class="flex items-center gap-3 mb-8">
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-text-dim">// Other Builds</p>
+        <div class="flex-1 h-px bg-border"></div>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 reveal-stagger">
+      {otherProjects.map((project) => (
+        <ProjectCard project={project} featured={false} />
+      ))}
+    </div>
+  </div>
+</section>

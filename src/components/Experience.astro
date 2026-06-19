@@ -1,0 +1,52 @@
+---
+import { experiences } from '../data/experience';
+
+const typeLabels: Record<string, string> = {
+  internship: 'Internship',
+  project: 'Project',
+  field: 'Field Work',
+  hackathon: 'Hackathon',
+  organization: 'Organization',
+};
+
+const typeBadgeColors: Record<string, string> = {
+  internship: 'text-success bg-success/10 border-success/20',
+  project: 'text-accent bg-accent/10 border-accent/20',
+  field: 'text-accent-secondary bg-accent-secondary/10 border-accent-secondary/20',
+  hackathon: 'text-accent bg-accent/10 border-accent/20',
+  organization: 'text-text-muted bg-text-muted/10 border-text-muted/20',
+};
+---
+
+<section class="py-20 md:py-28 relative bg-bg-alt">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="mb-12 md:mb-16 reveal">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-3">// Experience</p>
+      <h2 class="text-3xl md:text-5xl font-semibold tracking-tight text-text font-display">
+        Pengalaman
+      </h2>
+    </div>
+
+    <!-- Experience List -->
+    <div class="space-y-4 reveal-stagger">
+      {experiences.map((exp) => (
+        <div class="bg-surface border border-border rounded-xl p-5 md:p-6 transition-all duration-300 hover:border-border-strong hover:-translate-y-0.5 hover:shadow-[0_4px_20px_-8px_rgba(94,234,212,0.08)] reveal">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
+            <div>
+              <h3 class="text-base md:text-lg font-medium text-text">{exp.role}</h3>
+              <p class="text-sm text-text-muted">{exp.organization}</p>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <span class:list={['font-mono text-[10px] uppercase tracking-wider border rounded-full px-2 py-0.5', typeBadgeColors[exp.type]]}>
+                {typeLabels[exp.type]}
+              </span>
+              <span class="font-mono text-xs text-text-dim">{exp.period}</span>
+            </div>
+          </div>
+          <p class="text-sm text-text-dim leading-relaxed">{exp.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

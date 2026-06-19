@@ -1,0 +1,31 @@
+---
+import { skillGroups } from '../data/skills';
+---
+
+<section class="py-20 md:py-28 relative">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="mb-12 md:mb-16 reveal">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-3">// Tech Stack</p>
+      <h2 class="text-3xl md:text-5xl font-semibold tracking-tight text-text font-display">
+        Skills & Tools
+      </h2>
+    </div>
+
+    <!-- Skill Groups Grid -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal-stagger">
+      {skillGroups.map((group) => (
+        <div class="bg-surface border border-border rounded-xl p-5 transition-all duration-300 hover:border-border-strong reveal">
+          <p class="font-mono text-xs uppercase tracking-wider text-accent mb-4">{group.name}</p>
+          <div class="flex flex-wrap gap-2">
+            {group.skills.map((skill) => (
+              <span class="text-xs text-text-muted bg-bg-alt border border-border/50 rounded-md px-2.5 py-1.5 hover:border-border-strong hover:text-text transition-colors duration-200">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
