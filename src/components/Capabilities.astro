@@ -1,5 +1,5 @@
 ---
-// Capabilities Component - Replaces raw Skills section
+// Capabilities Component - Replaces raw Skills section with horizontal editorial list
 const capabilities = [
   {
     index: '01',
@@ -48,7 +48,7 @@ const capabilities = [
 ];
 ---
 
-<section id="capabilities" class="section-spacing relative">
+<section id="capabilities" class="section-spacing relative bg-bg">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
     <div class="mb-16 md:mb-20 reveal">
@@ -57,53 +57,56 @@ const capabilities = [
         CAPABILITIES
       </h2>
       <p class="text-base text-text-muted mt-4 max-w-2xl font-light">
-        A structured overview of technical domains and tools I apply to translate ideas into operational digital products.
+        A structured list of engineering domains, methodologies, and technologies I apply to transform digital requirements into operational products.
       </p>
     </div>
 
-    <!-- Capabilities Grid -->
-    <div class="grid md:grid-cols-2 gap-6 reveal-stagger">
+    <!-- Capabilities Horizontal List -->
+    <div class="border-y border-border/60 divide-y divide-border/60 reveal-stagger">
       {capabilities.map((cap) => (
-        <div class="editorial-card card-teal-glow p-6 md:p-8 flex flex-col justify-between border border-border/80 bg-surface/50">
-          <div class="space-y-6">
-            <!-- Header -->
-            <div class="flex items-center justify-between">
-              <span class="font-mono text-xs text-accent uppercase tracking-wider">
-                / {cap.title}
-              </span>
-              <span class="font-mono text-xs text-text-dim">
-                {cap.index}
-              </span>
-            </div>
-
-            <!-- Content -->
-            <div class="space-y-4">
-              <p class="text-base text-text-muted leading-relaxed font-light">
+        <div class="capabilities-row relative py-8 px-4 md:px-6 transition-all duration-300 hover:bg-surface/20 group">
+          <!-- Subtle hover indicator line on the left -->
+          <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-transparent group-hover:bg-accent transition-all duration-300"></div>
+          
+          <div class="grid md:grid-cols-12 gap-6 items-start relative z-10">
+            
+            <!-- Index & Title (Left 4 cols) -->
+            <div class="md:col-span-4 space-y-2">
+              <div class="flex items-center gap-2.5">
+                <span class="font-mono text-xs text-accent">{cap.index} /</span>
+                <h3 class="text-lg font-semibold text-text group-hover:text-accent transition-colors duration-200">
+                  {cap.title}
+                </h3>
+              </div>
+              <p class="text-xs text-text-dim leading-relaxed font-light max-w-xs">
                 {cap.description}
               </p>
+            </div>
 
-              <!-- Details Bullet List -->
-              <ul class="space-y-2 text-xs text-text-dim pl-1">
+            <!-- Bullet Details (Center 4 cols) -->
+            <div class="md:col-span-4">
+              <ul class="space-y-1.5 text-xs text-text-muted">
                 {cap.details.map((detail) => (
-                  <li class="flex items-center gap-2">
-                    <span class="text-accent/60 text-[8px] font-mono">◈</span>
-                    {detail}
+                  <li class="flex items-start gap-2">
+                    <span class="text-accent/60 text-[7px] mt-1.5">◈</span>
+                    <span>{detail}</span>
                   </li>
                 ))}
               </ul>
             </div>
-          </div>
 
-          <!-- Bottom: Tech Stack Tags -->
-          <div class="mt-8 pt-6 border-t border-border/40">
-            <p class="font-mono text-[9px] uppercase tracking-wider text-text-dim mb-3">Associated Stack:</p>
-            <div class="flex flex-wrap gap-1.5">
-              {cap.skills.map((skill) => (
-                <span class="font-mono text-[9px] text-text-muted bg-bg-alt border border-border/50 rounded px-2 py-0.5">
-                  {skill}
-                </span>
-              ))}
+            <!-- Tech Stack (Right 4 cols - Scannable) -->
+            <div class="md:col-span-4 space-y-3">
+              <span class="font-mono text-[9px] uppercase tracking-wider text-text-dim block">Associated Stack:</span>
+              <div class="flex flex-wrap gap-1.5">
+                {cap.skills.map((skill) => (
+                  <span class="font-mono text-[9px] text-text-muted bg-surface border border-border/60 rounded px-2.5 py-0.5 group-hover:border-accent/30 group-hover:text-text transition-all duration-200">
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
+
           </div>
         </div>
       ))}

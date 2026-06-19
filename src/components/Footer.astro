@@ -8,8 +8,13 @@ const navLinks = [
 ];
 ---
 
-<footer class="pt-20 pb-12 border-t border-border/40 bg-bg">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<footer class="pt-24 pb-12 border-t border-border/40 bg-bg relative overflow-hidden">
+  <!-- Giant Background Text (Low contrast, non-distracting) -->
+  <div class="absolute inset-x-0 -bottom-8 pointer-events-none select-none text-center leading-none font-bold text-[10vw] md:text-[13vw] tracking-tighter uppercase text-surface-hover/30 font-display opacity-40 z-0">
+    REYHAN
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-16">
       
       <!-- Left Column - Brand Info (6 cols on md) -->

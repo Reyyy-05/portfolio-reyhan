@@ -1,5 +1,5 @@
 ---
-// Hero — Build Log style with Project Operating Board
+// Hero — Build Log × Editorial Style with 3-Column Layout
 const boardTiles = [
   {
     category: 'Web Systems',
@@ -18,7 +18,7 @@ const boardTiles = [
     animClass: 'animate-float-delayed',
   },
   {
-    category: 'Data-Oriented Systems',
+    category: 'Data Systems',
     project: 'StatProv',
     status: 'MVP',
     statusColor: 'bg-accent',
@@ -43,16 +43,16 @@ const stats = [
 ];
 ---
 
-<section class="relative min-h-[95vh] flex flex-col justify-center pt-24 pb-16 overflow-hidden">
-  <!-- Subtle background gradients -->
+<section class="relative min-h-screen flex flex-col justify-center pt-24 pb-12 overflow-hidden bg-bg">
+  <!-- Background gradients -->
   <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(94,234,212,0.03)_0%,_transparent_65%)]"></div>
   <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(124,156,255,0.02)_0%,_transparent_65%)]"></div>
 
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 flex-1 flex flex-col justify-center">
-    <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center lg:items-start py-8">
       
-      <!-- Left Column - Content (7 cols on lg) -->
-      <div class="lg:col-span-7 space-y-8 text-left">
+      <!-- 1. Left Column: Text content (5 cols on lg) -->
+      <div class="lg:col-span-5 order-1 space-y-6 text-left">
         <!-- Eyebrow -->
         <div class="reveal">
           <p class="font-mono text-xs uppercase tracking-[0.25em] text-accent">
@@ -61,31 +61,31 @@ const stats = [
         </div>
 
         <!-- Big Typography Headline -->
-        <div class="reveal space-y-4">
+        <div class="reveal space-y-3">
           <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tighter uppercase leading-[0.9] text-text font-display">
             DIGITAL PRODUCT<br class="hidden sm:inline" /> BUILDER
           </h1>
-          <p class="text-lg font-mono text-text-muted/80 tracking-wide uppercase">
+          <p class="text-base font-mono text-text-muted/80 tracking-wide uppercase">
             Reyhan Albar Fahryan
           </p>
         </div>
 
-        <!-- Copy and Supporting lines -->
+        <!-- Intro and Copy -->
         <div class="reveal space-y-4 max-w-xl">
-          <p class="text-lg md:text-xl text-text-muted leading-relaxed font-light">
+          <p class="text-base md:text-lg text-text-muted leading-relaxed font-light">
             Hey! I’m <span class="text-text font-medium">Reyhan</span>, an Informatics student building web, mobile, and data-oriented digital products.
           </p>
-          <p class="text-sm md:text-base text-text-dim leading-relaxed">
+          <p class="text-xs md:text-sm text-text-dim leading-relaxed">
             From ideas to working systems — built with clarity, structure, and practical engineering.
           </p>
         </div>
 
-        <!-- CTAs -->
-        <div class="reveal flex flex-wrap items-center gap-4 pt-2">
+        <!-- Desktop CTA buttons (hidden on mobile) -->
+        <div class="reveal hidden lg:flex flex-wrap items-center gap-3.5 pt-2">
           <a
             href="#work"
-            id="cta-view-work"
-            class="bg-accent text-bg font-medium px-6 py-3 rounded-xl hover:bg-accent/90 transition-all duration-300 shadow-sm hover:shadow-[0_8px_20px_-6px_rgba(94,234,212,0.3)] text-sm"
+            id="cta-view-work-desktop"
+            class="bg-accent text-bg font-medium px-5 py-3 rounded-xl hover:bg-accent/90 transition-all duration-300 shadow-sm hover:shadow-[0_8px_20px_-6px_rgba(94,234,212,0.3)] text-xs uppercase tracking-wider font-mono"
           >
             View Work
           </a>
@@ -93,76 +93,113 @@ const stats = [
             href="https://github.com/Reyyy-05"
             target="_blank"
             rel="noopener noreferrer"
-            id="cta-github"
-            class="border border-border text-text-muted px-5 py-3 rounded-xl hover:border-border-strong hover:bg-surface hover:text-text transition-all duration-300 text-sm inline-flex items-center gap-2"
+            id="cta-github-desktop"
+            class="border border-border text-text-muted px-4 py-3 rounded-xl hover:border-border-strong hover:bg-surface hover:text-text transition-all duration-300 text-xs inline-flex items-center gap-2 font-mono uppercase tracking-wider"
           >
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
             </svg>
             GitHub
           </a>
           <a
             href="/cv-reyhan.pdf"
-            id="cta-resume"
-            class="border border-border text-text-muted px-5 py-3 rounded-xl hover:border-border-strong hover:bg-surface hover:text-text transition-all duration-300 text-sm inline-flex items-center gap-2"
+            id="cta-resume-desktop"
+            class="border border-border text-text-muted px-4 py-3 rounded-xl hover:border-border-strong hover:bg-surface hover:text-text transition-all duration-300 text-xs inline-flex items-center gap-1.5 font-mono uppercase tracking-wider"
           >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
-            Resume
+            CV
           </a>
         </div>
       </div>
 
-      <!-- Right Column - Visual Card Stack (5 cols on lg) -->
-      <div class="lg:col-span-5 relative select-none">
-        <div class="reveal relative max-w-md mx-auto lg:max-w-none space-y-4">
-          <!-- Board Header -->
-          <div class="flex items-center justify-between px-2 mb-2 font-mono text-[10px] text-text-dim uppercase tracking-wider">
-            <span>/ BUILD LOG WORKSPACE</span>
-            <span class="flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-dot"></span>
-              Active Stack
-            </span>
-          </div>
-
-          <!-- Profile Picture Visual Card -->
-          <div class="editorial-card card-teal-glow aspect-[4/3] relative overflow-hidden rounded-3xl border border-border/80 bg-surface/50 group reveal">
+      <!-- 2. Center Column: Portrait visual card (3 cols on lg) -->
+      <div class="lg:col-span-3 order-2 flex justify-center w-full">
+        <div class="reveal w-full max-w-[280px] sm:max-w-[320px] lg:max-w-none">
+          <div class="editorial-card card-teal-glow aspect-[3/4] relative overflow-hidden rounded-[2rem] border border-border/80 bg-surface/50 group">
             <img 
               src="/profilpicture.jpeg" 
               alt="Portrait of Reyhan Albar Fahryan" 
-              class="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-500 group-hover:scale-105" 
+              class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" 
             />
-            <div class="absolute bottom-3 left-3 bg-bg/85 backdrop-blur-md border border-border/60 rounded-xl px-3 py-1 font-mono text-[9px] text-accent uppercase tracking-wider">
-              / AUTHOR & BUILDER
+            <div class="absolute bottom-3.5 left-3.5 bg-bg/85 backdrop-blur-md border border-border/60 rounded-xl px-3 py-1 font-mono text-[8px] text-accent uppercase tracking-wider">
+              / BUILDER
             </div>
           </div>
+        </div>
+      </div>
 
-          <!-- Editorial Card Stack/Board (2x2 Grid) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 relative">
+      <!-- 3. Mobile CTA Buttons (only shown on mobile/tablet, order-3) -->
+      <div class="lg:hidden order-3 flex flex-wrap items-center justify-center gap-3 w-full py-4 reveal">
+        <a
+          href="#work"
+          id="cta-view-work-mobile"
+          class="bg-accent text-bg font-medium px-5 py-3 rounded-xl hover:bg-accent/90 transition-all duration-300 text-xs uppercase tracking-wider font-mono w-full sm:w-auto text-center"
+        >
+          View Work
+        </a>
+        <a
+          href="https://github.com/Reyyy-05"
+          target="_blank"
+          rel="noopener noreferrer"
+          id="cta-github-mobile"
+          class="border border-border text-text-muted px-4 py-3 rounded-xl hover:border-border-strong hover:bg-surface hover:text-text transition-all duration-300 text-xs inline-flex items-center justify-center gap-2 font-mono uppercase tracking-wider w-full sm:w-auto text-center"
+        >
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+        <a
+          href="/cv-reyhan.pdf"
+          id="cta-resume-mobile"
+          class="border border-border text-text-muted px-4 py-3 rounded-xl hover:border-border-strong hover:bg-surface hover:text-text transition-all duration-300 text-xs inline-flex items-center justify-center gap-1.5 font-mono uppercase tracking-wider w-full sm:w-auto text-center"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          CV
+        </a>
+      </div>
+
+      <!-- 4. Right Column: Operating board stack (4 cols on lg, order-4) -->
+      <div class="lg:col-span-4 order-4 space-y-4 w-full">
+        <div class="reveal space-y-4">
+          <!-- Board Header -->
+          <div class="flex items-center justify-between px-2 font-mono text-[9px] text-text-dim uppercase tracking-wider">
+            <span>/ PROJECT OPERATING BOARD</span>
+            <span class="flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-dot"></span>
+              Workspace
+            </span>
+          </div>
+
+          <!-- Cards Stack -->
+          <div class="space-y-2.5">
             {boardTiles.map((tile) => (
               <div
                 class:list={[
-                  'editorial-card card-teal-glow p-3.5 relative overflow-hidden group border border-border/80 bg-surface/90 backdrop-blur-sm',
+                  'editorial-card card-teal-glow p-3.5 relative overflow-hidden group border border-border/80 bg-surface/85 backdrop-blur-sm',
                   tile.animClass,
                 ]}
               >
                 <!-- Subtle left indicator line -->
                 <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-border-strong group-hover:bg-accent transition-colors duration-300"></div>
                 
-                <div class="flex flex-col justify-between h-full pl-1.5 space-y-2">
+                <div class="flex items-start justify-between gap-3 pl-2 text-left">
                   <div class="min-w-0">
-                    <div class="flex items-center gap-1.5 mb-1">
+                    <div class="flex items-center gap-1.5 mb-0.5">
                       <span class:list={['w-1 h-1 rounded-full', tile.statusColor]}></span>
                       <span class="font-mono text-[8px] uppercase tracking-wider text-text-dim truncate">{tile.category}</span>
                     </div>
                     <p class="text-xs text-text font-medium truncate">{tile.project}</p>
                   </div>
-                  <div class="flex justify-between items-center text-left border-t border-border/30 pt-1.5">
+                  <div class="flex flex-col items-end text-right shrink-0">
                     <span class="font-mono text-[8px] text-accent bg-accent/5 border border-accent/15 rounded px-1.5 py-0.25">
                       {tile.status}
                     </span>
-                    <span class="font-mono text-[8px] text-text-dim">{tile.meta}</span>
+                    <span class="font-mono text-[8px] text-text-dim mt-0.5">{tile.meta}</span>
                   </div>
                 </div>
               </div>
@@ -170,9 +207,9 @@ const stats = [
           </div>
 
           <!-- Bottom Summary Stat Row -->
-          <div class="grid grid-cols-4 gap-2 pt-2 text-center">
+          <div class="grid grid-cols-4 gap-2 pt-1 text-center">
             {stats.map((stat) => (
-              <div class="bg-surface/40 border border-border/40 rounded-xl p-2 md:p-2.5">
+              <div class="bg-surface/40 border border-border/40 rounded-xl p-2">
                 <p class="font-mono text-xs text-accent font-semibold">{stat.value}</p>
                 <p class="font-mono text-[8px] text-text-dim uppercase tracking-wider mt-0.5">{stat.label}</p>
               </div>
@@ -188,7 +225,7 @@ const stats = [
   <div class="w-full mt-auto pt-8 reveal">
     <div class="ticker-wrap border-y border-border/60">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="ticker-content font-mono text-[10px] text-text-dim uppercase tracking-[0.2em] font-medium py-1">
+        <div class="ticker-content font-mono text-[9px] text-text-dim uppercase tracking-[0.2em] font-medium py-1">
           <span>/ BUILDING SINCE 2024</span>
           <span class="hidden sm:inline text-border-strong">•</span>
           <span>/ INFORMATICS STUDENT</span>

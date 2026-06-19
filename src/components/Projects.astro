@@ -16,22 +16,22 @@ import { featuredProjects, otherProjects } from '../data/projects';
       </p>
     </div>
 
-    <!-- Featured Projects Grid (Stacked full-width cards) -->
-    <div class="grid grid-cols-1 gap-8 mb-24 reveal-stagger">
+    <!-- Featured Projects Grid (2 columns on md/lg) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14 mb-24 reveal-stagger">
       {featuredProjects.map((project) => (
         <ProjectCard project={project} featured={true} />
       ))}
     </div>
 
     <!-- Other Projects Grid (Compact cards) -->
-    <div class="reveal mt-20">
+    <div class="reveal mt-24">
       <div class="flex items-center gap-3 mb-10">
         <span class="font-mono text-xs uppercase tracking-[0.25em] text-text-dim">/ AUXILIARY BUILDS</span>
         <div class="flex-1 h-px bg-border/60"></div>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal-stagger">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 reveal-stagger">
       {otherProjects.map((project) => (
         <ProjectCard project={project} featured={false} />
       ))}
