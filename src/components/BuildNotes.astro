@@ -1,0 +1,54 @@
+---
+// BuildNotes Component - Honest notes on software building
+const notes = [
+  {
+    step: '01 / PURPOSE',
+    title: 'Building MVPs from real problems',
+    description: 'I focus on bridging the gap between an idea and a functioning prototype. I design database schemas, UI layouts, and logic components to validate core requirements first.'
+  },
+  {
+    step: '02 / RANGE',
+    title: 'Learning through cross-platform projects',
+    description: 'By building web catalogs, mobile apps, and validation tools, I explore how frontend rendering, mobile state, and database transactions interface together as a system.'
+  },
+  {
+    step: '03 / QUALITY',
+    title: 'Preparing for team integration',
+    description: 'I document my repositories, commit regularly, and structure code logically. I aim to write systems that are straightforward for others to clone, run, and review.'
+  }
+];
+---
+
+<section id="notes" class="section-spacing relative bg-bg-alt/50 border-y border-border/40">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="mb-16 md:mb-20 reveal">
+      <p class="font-mono text-xs uppercase tracking-[0.25em] text-accent mb-3">/ PHILOSOPHY</p>
+      <h2 class="text-4xl md:text-6xl font-bold tracking-tighter uppercase leading-[0.95] font-display text-text">
+        BUILD NOTES
+      </h2>
+      <p class="text-base text-text-muted mt-4 max-w-2xl font-light">
+        A set of honest reflections on my learning goals, technical progress, and approach to software development.
+      </p>
+    </div>
+
+    <!-- Notes Columns Grid -->
+    <div class="grid md:grid-cols-3 gap-6 md:gap-8 reveal-stagger">
+      {notes.map((note) => (
+        <div class="editorial-card card-blue-glow p-6 md:p-8 flex flex-col justify-between border border-border/80 bg-surface/40">
+          <div class="space-y-4">
+            <span class="font-mono text-[9px] text-accent uppercase tracking-wider">
+              {note.step}
+            </span>
+            <h3 class="text-lg font-medium text-text">
+              {note.title}
+            </h3>
+            <p class="text-xs text-text-dim leading-relaxed font-light">
+              {note.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -10,41 +10,41 @@ const typeLabels: Record<string, string> = {
 };
 
 const typeBadgeColors: Record<string, string> = {
-  internship: 'text-success bg-success/10 border-success/20',
-  project: 'text-accent bg-accent/10 border-accent/20',
-  field: 'text-accent-secondary bg-accent-secondary/10 border-accent-secondary/20',
-  hackathon: 'text-accent bg-accent/10 border-accent/20',
-  organization: 'text-text-muted bg-text-muted/10 border-text-muted/20',
+  internship: 'text-success bg-success/5 border-success/15',
+  project: 'text-accent bg-accent/5 border-accent/15',
+  field: 'text-accent-secondary bg-accent-secondary/5 border-accent-secondary/15',
+  hackathon: 'text-accent bg-accent/5 border-accent/15',
+  organization: 'text-text-muted bg-text-muted/5 border-text-muted/15',
 };
 ---
 
-<section class="py-20 md:py-28 relative bg-bg-alt">
+<section class="section-spacing relative bg-bg-alt/30">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
-    <div class="mb-12 md:mb-16 reveal">
-      <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-3">// Experience</p>
-      <h2 class="text-3xl md:text-5xl font-semibold tracking-tight text-text font-display">
-        Pengalaman
+    <div class="mb-16 md:mb-20 reveal">
+      <p class="font-mono text-xs uppercase tracking-[0.25em] text-accent mb-3">/ CHRONOLOGY</p>
+      <h2 class="text-4xl md:text-6xl font-bold tracking-tighter uppercase leading-[0.95] font-display text-text">
+        EXPERIENCE
       </h2>
     </div>
 
     <!-- Experience List -->
     <div class="space-y-4 reveal-stagger">
       {experiences.map((exp) => (
-        <div class="bg-surface border border-border rounded-xl p-5 md:p-6 transition-all duration-300 hover:border-border-strong hover:-translate-y-0.5 hover:shadow-[0_4px_20px_-8px_rgba(94,234,212,0.08)] reveal">
-          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
+        <div class="editorial-card card-blue-glow border border-border/80 bg-surface/40 p-6 md:p-8 reveal">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
             <div>
-              <h3 class="text-base md:text-lg font-medium text-text">{exp.role}</h3>
-              <p class="text-sm text-text-muted">{exp.organization}</p>
+              <h3 class="text-lg font-medium text-text">{exp.role}</h3>
+              <p class="text-xs text-text-muted font-mono uppercase tracking-wider mt-1">{exp.organization}</p>
             </div>
-            <div class="flex items-center gap-2 shrink-0">
-              <span class:list={['font-mono text-[10px] uppercase tracking-wider border rounded-full px-2 py-0.5', typeBadgeColors[exp.type]]}>
+            <div class="flex items-center gap-2.5 shrink-0 self-start sm:self-auto">
+              <span class:list={['font-mono text-[9px] uppercase tracking-wider border rounded px-2 py-0.5', typeBadgeColors[exp.type]]}>
                 {typeLabels[exp.type]}
               </span>
               <span class="font-mono text-xs text-text-dim">{exp.period}</span>
             </div>
           </div>
-          <p class="text-sm text-text-dim leading-relaxed">{exp.description}</p>
+          <p class="text-sm text-text-muted font-light leading-relaxed">{exp.description}</p>
         </div>
       ))}
     </div>

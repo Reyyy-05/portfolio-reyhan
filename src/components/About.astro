@@ -2,49 +2,60 @@
 // About section
 ---
 
-<section id="about" class="py-20 md:py-28 relative">
+<section id="about" class="section-spacing relative bg-bg/50">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid lg:grid-cols-5 gap-12 lg:gap-16">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
-      <!-- Left Column — Label -->
-      <div class="lg:col-span-2">
-        <div class="reveal">
-          <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-3">// About</p>
-          <h2 class="text-3xl md:text-5xl font-semibold tracking-tight text-text font-display">
-            Tentang<br />Saya
+      <!-- Left Column — Display Heading (5 cols) -->
+      <div class="lg:col-span-5">
+        <div class="reveal space-y-4">
+          <p class="font-mono text-xs uppercase tracking-[0.25em] text-accent">/ ABOUT ME</p>
+          <h2 class="text-8xl sm:text-9xl font-bold tracking-tighter text-accent/20 font-display select-none">
+            Hey!
           </h2>
         </div>
       </div>
 
-      <!-- Right Column — Content -->
-      <div class="lg:col-span-3 space-y-6 reveal">
-        <p class="text-base md:text-lg text-text-muted leading-relaxed">
-          Saya adalah mahasiswa Informatika semester 6 di
-          <span class="text-text">Universitas Nahdlatul Ulama Yogyakarta</span>
-          yang berfokus pada pengembangan full-stack web, mobile app, sistem informasi, database, dan solusi data-oriented.
-        </p>
+      <!-- Right Column — Editorial Copy & Cards (7 cols) -->
+      <div class="lg:col-span-7 space-y-10 reveal">
+        <div class="space-y-6">
+          <p class="text-lg md:text-xl text-text-muted leading-relaxed font-light">
+            I’m <span class="text-text font-medium">Reyhan</span>, an Informatics student focused on turning real problems into working digital products. My work spans web catalogs, mobile learning apps, data validation systems, community tools, and product prototypes.
+          </p>
 
-        <p class="text-base md:text-lg text-text-muted leading-relaxed">
-          Saya terbiasa membangun produk dari nol — mulai dari merancang alur, membangun UI, mengelola database, melakukan debugging, sampai menyusun dokumentasi teknis. Pengalaman saya mencakup proyek magang di agensi digital, web catalog komersial, mobile app edukasi, sistem manajemen kegiatan, data provenance, dan eksplorasi IoT untuk sektor pangan.
-        </p>
+          <p class="text-base text-text-dim leading-relaxed">
+            I like building systems that are practical, structured, and useful — from early MVPs to portfolio-ready projects. I aim to write clean code, document my findings, and work collaboratively to deploy reliable systems.
+          </p>
+        </div>
 
-        <p class="text-base md:text-lg text-text-muted leading-relaxed">
-          Saat ini saya sedang magang sebagai
-          <span class="text-text">Web Development Intern di Creativemu Academy</span>,
-          berkontribusi pada pengembangan landing page dan migrasi arsitektur web ke ekosistem Node.js/Next.js.
-        </p>
-
-        <!-- Quick Info -->
+        <!-- Metadata Cards Grid -->
         <div class="grid sm:grid-cols-2 gap-4 pt-4">
-          <div class="bg-surface border border-border rounded-xl p-4">
-            <p class="font-mono text-[10px] uppercase tracking-wider text-text-dim mb-1">Education</p>
-            <p class="text-sm text-text">S1 Informatika</p>
+          <!-- Card 1: Education -->
+          <div class="editorial-card card-teal-glow p-5 border border-border/70 bg-surface/50">
+            <p class="font-mono text-[9px] uppercase tracking-wider text-text-dim mb-2">/ EDUCATION</p>
+            <p class="text-sm font-medium text-text mb-1">Informatics Student</p>
             <p class="text-xs text-text-muted">UNU Yogyakarta · Semester 6</p>
           </div>
-          <div class="bg-surface border border-border rounded-xl p-4">
-            <p class="font-mono text-[10px] uppercase tracking-wider text-text-dim mb-1">Focus</p>
-            <p class="text-sm text-text">Full-Stack & Product Building</p>
-            <p class="text-xs text-text-muted">Web · Mobile · Data Systems</p>
+
+          <!-- Card 2: Stack -->
+          <div class="editorial-card card-teal-glow p-5 border border-border/70 bg-surface/50">
+            <p class="font-mono text-[9px] uppercase tracking-wider text-text-dim mb-2">/ FOCUS</p>
+            <p class="text-sm font-medium text-text mb-1">Web & Mobile</p>
+            <p class="text-xs text-text-muted">Next.js & Expo React Native</p>
+          </div>
+
+          <!-- Card 3: Domain -->
+          <div class="editorial-card card-teal-glow p-5 border border-border/70 bg-surface/50">
+            <p class="font-mono text-[9px] uppercase tracking-wider text-text-dim mb-2">/ SPECIALIZATION</p>
+            <p class="text-sm font-medium text-text mb-1">Data-Oriented Systems</p>
+            <p class="text-xs text-text-muted">Provenance & integrity verification</p>
+          </div>
+
+          <!-- Card 4: Codebase -->
+          <div class="editorial-card card-teal-glow p-5 border border-border/70 bg-surface/50">
+            <p class="font-mono text-[9px] uppercase tracking-wider text-text-dim mb-2">/ REPOSITORIES</p>
+            <p class="text-sm font-medium text-text mb-1">GitHub Portfolio</p>
+            <p class="text-xs text-text-muted">10+ public builds and prototypes</p>
           </div>
         </div>
       </div>
