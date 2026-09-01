@@ -504,6 +504,15 @@ const firstViewId = hasViews ? project.views![0].id : null;
           Live Demo
         </a>
       )}
+      <a
+        href={`/projects/${project.slug}`}
+        class="inline-flex items-center gap-1.5 text-xs text-text-dim hover:text-accent-secondary transition-all duration-200 font-mono uppercase tracking-wider ml-auto group"
+      >
+        Case Study
+        <svg class="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </a>
     </div>
   </div>
 ) : (
