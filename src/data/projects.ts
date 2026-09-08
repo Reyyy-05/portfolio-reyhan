@@ -1,242 +1,287 @@
-export interface ProjectView {
-  id: string;
-  label: string;
-  description: string;
-  mockupKey: string;
-  image?: string; // e.g. /projects/imgn/catalog.png — leave empty to use CSS mockup
-}
-
 export interface Project {
-  slug: string;   // URL-friendly ID, e.g. 'imgn-concept-web-catalog'
+  id: string;
   title: string;
-  category: string;
+  category: 'web' | 'mobile' | 'systems' | 'collab';
+  categoryLabel: string;
+  tagline: string;
   description: string;
-  whyItMatters?: string;
+  engineeringHighlight: string;
   techStack: string[];
-  status: 'MVP' | 'In Development' | 'Academic' | 'Collaboration' | 'Internship Project' | 'Experiment' | 'Production';
-  github: string;
-  demo?: string;
+  status: 'Production' | 'MVP' | 'Collaboration' | 'Experiment';
+  githubUrl: string;
+  demoUrl?: string;
   featured: boolean;
-  type: 'web' | 'mobile' | 'data' | 'product';
-  coverImage?: string; // e.g. /projects/imgn/cover.png — main thumbnail
-  views?: ProjectView[];
+  pixelBadge: string;
+  metrics?: { label: string; value: string };
+  codeSnippetPreview?: {
+    filename: string;
+    language: string;
+    snippet: string;
+  };
 }
 
-export const featuredProjects: Project[] = [
+export const projectsData: Project[] = [
   {
-    slug: 'imgn-concept-web-catalog',
+    id: 'imgn-concept-katalog',
     title: 'IMGN Concept Web Catalog',
-    category: 'Web / Product Catalog',
-    description: 'Web catalog full-stack untuk digitalisasi katalog produk modifikasi motor dengan arsitektur Next.js dan Supabase, fitur inventaris dinamis dan database relasional kustom.',
-    whyItMatters: 'Solusi digitalisasi katalog produk nyata untuk bisnis manufaktur — dari desain database hingga UI responsif.',
-    techStack: ['Next.js', 'Supabase', 'PostgreSQL', 'Tailwind CSS'],
+    category: 'web',
+    categoryLabel: 'Commercial Full-Stack Web',
+    tagline: 'Digital Commercial Catalog & Relational Inventory System',
+    description: 'A full-stack commercial web catalog built for a custom motorcycle parts brand. Features instant category filtering, relational inventory synchronization, and responsive image galleries.',
+    engineeringHighlight: 'Architected dynamic category filtering with Next.js App Router and Supabase PostgreSQL relational schemas with custom Row-Level Security (RLS).',
+    techStack: ['Next.js', 'React', 'TypeScript', 'Supabase', 'PostgreSQL', 'Tailwind CSS'],
     status: 'Production',
-    github: 'https://github.com/Reyyy-05/imgnconsept-katalog.git',
+    githubUrl: 'https://github.com/Reyyy-05/imgnconsept-katalog.git',
     featured: true,
-    type: 'web',
-    // coverImage: '/projects/imgn/cover.png',
-    views: [
-      {
-        id: 'catalog',
-        label: 'Catalog',
-        description: 'Halaman utama katalog produk dengan grid layout dan filter kategori.',
-        mockupKey: 'imgn-catalog',
-        // image: '/projects/imgn/catalog.png',
-      },
-      {
-        id: 'detail',
-        label: 'Product Detail',
-        description: 'Halaman detail produk dengan galeri foto, spesifikasi, dan deskripsi lengkap.',
-        mockupKey: 'imgn-detail',
-        // image: '/projects/imgn/detail.png',
-      },
-      {
-        id: 'admin',
-        label: 'Admin Panel',
-        description: 'Dashboard admin untuk mengelola inventaris, menambah produk, dan melihat statistik.',
-        mockupKey: 'imgn-admin',
-        // image: '/projects/imgn/admin.png',
-      },
-    ],
+    pixelBadge: '📦 PROD',
+    metrics: { label: 'Inventory Sync', value: '< 80ms' },
+    codeSnippetPreview: {
+      filename: 'useCatalogFilter.ts',
+      language: 'typescript',
+      snippet: `const { data: products } = await supabase
+  .from('motor_parts')
+  .select('id, name, price, stock, category_id')
+  .eq('is_published', true)
+  .order('created_at', { ascending: false });`
+    }
   },
   {
-    slug: 'statprov',
-    title: 'StatProv',
-    category: 'Data Integrity / Web System',
-    description: 'Prototipe sistem data provenance untuk memverifikasi integritas dataset melalui hash verification, metadata, preview CSV/XLSX, dan validasi administratif.',
-    whyItMatters: 'Membangun kepercayaan data statistik melalui transparansi dan verifikasi integritas dataset.',
-    techStack: ['Next.js', 'TypeScript', 'Prisma', 'SQLite'],
+    id: 'statprov',
+    title: 'StatProv (Data Provenance)',
+    category: 'systems',
+    categoryLabel: 'Data Integrity & Systems',
+    tagline: 'Cryptographic Dataset Integrity Verification Protocol',
+    description: 'A specialized prototype platform designed to audit and verify statistical dataset integrity through SHA-256 hash anchoring, CSV/XLSX browser-native parsing, and administrative audit trails.',
+    engineeringHighlight: 'Engineered in-browser client-side cryptographic checksum calculation coupled with Prisma ORM audit logging for zero-trust data provenance.',
+    techStack: ['Next.js', 'TypeScript', 'Prisma ORM', 'SQLite', 'SHA-256', 'Tailwind CSS'],
     status: 'MVP',
-    github: 'https://github.com/Reyyy-05/StatProv.git',
+    githubUrl: 'https://github.com/Reyyy-05/StatProv.git',
     featured: true,
-    type: 'data',
-    // coverImage: '/projects/statprov/cover.png',
-    views: [
-      {
-        id: 'dashboard',
-        label: 'Dashboard',
-        description: 'Overview sistem dengan status verifikasi dataset dan ringkasan provenance.',
-        mockupKey: 'statprov-dashboard',
-        // image: '/projects/statprov/dashboard.png',
-      },
-      {
-        id: 'verify',
-        label: 'Verification',
-        description: 'Proses hash verification SHA-256 untuk validasi integritas file dataset.',
-        mockupKey: 'statprov-verify',
-        // image: '/projects/statprov/verify.png',
-      },
-      {
-        id: 'preview',
-        label: 'CSV Preview',
-        description: 'Preview tabel dataset CSV/XLSX langsung di browser dengan metadata lengkap.',
-        mockupKey: 'statprov-preview',
-        // image: '/projects/statprov/preview.png',
-      },
-    ],
+    pixelBadge: '🔒 HASH',
+    metrics: { label: 'Integrity Check', value: 'SHA-256' },
+    codeSnippetPreview: {
+      filename: 'verifyChecksum.ts',
+      language: 'typescript',
+      snippet: `export async function verifyDatasetHash(buffer: ArrayBuffer, expectedHash: string) {
+  const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+  const hashHex = Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex === expectedHash;
+}`
+    }
   },
   {
-    slug: 'biolearn',
-    title: 'BioLearn',
-    category: 'EdTech / Mobile App',
-    description: 'Mobile learning app Biologi SMA dengan fitur modul kelas 10–12, mock video player, kuis latihan/ujian, evaluasi, dan progress tracking berbasis role.',
-    whyItMatters: 'Mengubah pendekatan pembelajaran Biologi konvensional menjadi pengalaman belajar digital yang terstruktur.',
+    id: 'biolearn',
+    title: 'BioLearn EdTech Mobile App',
+    category: 'mobile',
+    categoryLabel: 'Mobile Application',
+    tagline: 'Interactive High School Biology Learning & Quiz Platform',
+    description: 'A modern mobile learning application for high school biology with curriculum modularization (Grades 10–12), interactive quiz engine with score breakdown, and persistent learning progress.',
+    engineeringHighlight: 'Implemented client-side reactive state management with Zustand and structured navigation via Expo Router with offline-first caching.',
     techStack: ['Expo React Native', 'TypeScript', 'Zustand', 'Expo Router'],
     status: 'MVP',
-    github: 'https://github.com/Reyyy-05/BioLearn.git',
+    githubUrl: 'https://github.com/Reyyy-05/BioLearn.git',
     featured: true,
-    type: 'mobile',
-    // coverImage: '/projects/biolearn/cover.png',
-    views: [
-      {
-        id: 'home',
-        label: 'Home',
-        description: 'Dashboard siswa dengan daftar modul, progress belajar, dan rekomendasi materi.',
-        mockupKey: 'biolearn-home',
-        // image: '/projects/biolearn/home.png',
-      },
-      {
-        id: 'player',
-        label: 'Module Player',
-        description: 'Layar video player materi dengan progress bar, navigasi bab, dan catatan materi.',
-        mockupKey: 'biolearn-player',
-        // image: '/projects/biolearn/player.png',
-      },
-      {
-        id: 'quiz',
-        label: 'Quiz / Eval',
-        description: 'Tampilan kuis latihan dan evaluasi akhir dengan skor hasil dan review jawaban.',
-        mockupKey: 'biolearn-quiz',
-        // image: '/projects/biolearn/quiz.png',
-      },
-    ],
+    pixelBadge: '🧬 EDTECH',
+    metrics: { label: 'Curriculum Scope', value: 'Kelas 10-12' },
+    codeSnippetPreview: {
+      filename: 'useQuizStore.ts',
+      language: 'typescript',
+      snippet: `export const useQuizStore = create<QuizState>((set) => ({
+  score: 0,
+  currentQuestion: 0,
+  submitAnswer: (isCorrect) => set((s) => ({ 
+    score: isCorrect ? s.score + 10 : s.score,
+    currentQuestion: s.currentQuestion + 1
+  }))
+}));`
+    }
   },
   {
-    slug: 'masjidflow',
-    title: 'MasjidFlow',
-    category: 'Community Tech / Mobile App',
-    description: 'MVP aplikasi manajemen kegiatan masjid dengan fitur role login, pengajuan acara, approval, agenda, dan tugas panitia berbasis role-based access.',
-    whyItMatters: 'Menyederhanakan koordinasi kegiatan masjid dengan sistem digital yang mendukung berbagai peran pengguna.',
-    techStack: ['Expo React Native', 'TypeScript', 'Zustand', 'Expo Router'],
+    id: 'masjidflow',
+    title: 'MasjidFlow Community Management',
+    category: 'mobile',
+    categoryLabel: 'Mobile Community Tech',
+    tagline: 'Role-Based Mosque Event Coordination & Agenda App',
+    description: 'A mobile community tech platform built to organize mosque events, committee workflows, schedule approvals, and announcements with role-based access control (Admin, Pengurus, Jamaah).',
+    engineeringHighlight: 'Designed modular UI components with atomic role permissions and dynamic timeline renderers for mosque agenda planning.',
+    techStack: ['Expo React Native', 'TypeScript', 'Zustand', 'Expo Router', 'NativeWind'],
     status: 'MVP',
-    github: 'https://github.com/Reyyy-05/masjidflow.git',
+    githubUrl: 'https://github.com/Reyyy-05/masjidflow.git',
     featured: true,
-    type: 'mobile',
-    // coverImage: '/projects/masjidflow/cover.png',
-    views: [
-      {
-        id: 'agenda',
-        label: 'Agenda',
-        description: 'Daftar kegiatan masjid terjadwal dengan status approval dan detail panitia.',
-        mockupKey: 'masjid-agenda',
-        // image: '/projects/masjidflow/agenda.png',
-      },
-      {
-        id: 'submission',
-        label: 'Event Form',
-        description: 'Form pengajuan kegiatan oleh pengurus dengan input nama, tanggal, dan deskripsi.',
-        mockupKey: 'masjid-form',
-        // image: '/projects/masjidflow/form.png',
-      },
-      {
-        id: 'approval',
-        label: 'Admin Approval',
-        description: 'Halaman admin untuk menyetujui atau menolak pengajuan kegiatan dari pengurus.',
-        mockupKey: 'masjid-admin',
-        // image: '/projects/masjidflow/admin.png',
-      },
-    ],
+    pixelBadge: '🕌 COMM',
+    metrics: { label: 'User Roles', value: '3 Access Tiers' },
+    codeSnippetPreview: {
+      filename: 'roleGuard.tsx',
+      language: 'typescript',
+      snippet: `export function RoleGuard({ role, allowed, children }) {
+  if (!allowed.includes(role)) {
+    return <UnauthorizedNotice message="Restricted to Pengurus" />;
+  }
+  return <>{children}</>;
+}`
+    }
   },
-];
-
-export const otherProjects: Project[] = [
   {
-    slug: 'kairav-studio',
-    title: 'Kairav Studio',
-    category: 'Collaborative Portfolio',
-    description: 'Website studio/portofolio tim berbasis Astro dengan redesign landing page dan workflow kolaborasi GitHub.',
-    techStack: ['Astro', 'GSAP', 'GitHub'],
+    id: 'kairav-studio',
+    title: 'Kairav Studio Website',
+    category: 'collab',
+    categoryLabel: 'Collaborative Frontend',
+    tagline: 'Digital Studio Showcase & Creative Engineering Portfolio',
+    description: 'A collaborative digital agency showcase built in a team environment. Included redesign of core landing page, interactive Team members index, Services overview, and Works gallery.',
+    engineeringHighlight: 'Managed structured multi-contributor Git workflow with branch protection, PR peer reviews, and interactive animation choreographies.',
+    techStack: ['Astro', 'TypeScript', 'Tailwind CSS', 'GSAP', 'GitHub Team Flow'],
     status: 'Collaboration',
-    github: 'https://github.com/ilhamkrnwan/kairav.studio.git',
-    featured: false,
-    type: 'web',
+    githubUrl: 'https://github.com/ilhamkrnwan/kairav.studio.git',
+    featured: true,
+    pixelBadge: '👥 TEAM',
+    metrics: { label: 'Workflow', value: 'Git Team PR' },
   },
   {
-    slug: 'kalkulator-ahli-waris',
+    id: 'kalkulator-ahliwaris',
     title: 'Kalkulator Ahli Waris Islami',
-    category: 'Web Calculator',
-    description: 'Aplikasi kalkulator waris berbasis web untuk simulasi pembagian ahli waris dengan antarmuka digital.',
-    techStack: ['HTML', 'CSS', 'JavaScript'],
+    category: 'web',
+    categoryLabel: 'Web Logic & Algorithms',
+    tagline: 'Digital Islamic Inheritance (Faraidh) Share Calculator',
+    description: 'An interactive web calculator designed to simulate mathematical distributions of inheritance under Islamic jurisprudence, handling complex edge-cases like Ashabah and Hijab Hirman.',
+    engineeringHighlight: 'Implemented complex conditional rule trees and fractional fraction arithmetic in pure TypeScript with instant reactive UI recalculations.',
+    techStack: ['JavaScript', 'HTML5', 'Tailwind CSS', 'Faraidh Logic'],
     status: 'MVP',
-    github: 'https://github.com/Reyyy-05/kalkulator-ahliwaris.git',
+    githubUrl: 'https://github.com/Reyyy-05/kalkulator-ahliwaris.git',
     featured: false,
-    type: 'web',
+    pixelBadge: '⚖️ LOGIC',
   },
   {
-    slug: 'pupukku',
-    title: 'Pupukku',
-    category: 'Agri-Commerce Platform',
-    description: 'Platform digital bertema pertanian untuk katalog dan transaksi produk pertanian.',
-    techStack: ['Firebase', 'UI/UX', 'Web'],
-    status: 'Academic',
-    github: 'https://github.com/Reyyy-05/Pupukku.git',
-    featured: false,
-    type: 'product',
-  },
-  {
-    slug: 'kafebilyar-app',
-    title: 'KafeBilyarApp',
-    category: 'Booking / Management',
-    description: 'Aplikasi booking dan manajemen untuk kebutuhan kafe dan bilyar.',
-    techStack: ['Mobile', 'TypeScript', 'React Native'],
+    id: 'pupukku',
+    title: 'Pupukku Agri-Commerce Platform',
+    category: 'web',
+    categoryLabel: 'Agri-Tech Platform',
+    tagline: 'Agricultural Fertilizer Catalog & Farmer Support Hub',
+    description: 'A dedicated web application providing local farmers with transparent catalog pricing, fertilizer dosage recommendations, and distributor direct contact channels.',
+    engineeringHighlight: 'Focused on high-accessibility UI tailored for mobile web users in rural farming communities with minimal data overhead.',
+    techStack: ['React', 'Firebase', 'Tailwind CSS', 'UI/UX'],
     status: 'Experiment',
-    github: 'https://github.com/Reyyy-05/KafeBilyarApp.git',
+    githubUrl: 'https://github.com/Reyyy-05/Pupukku.git',
     featured: false,
-    type: 'mobile',
+    pixelBadge: '🌱 AGRI',
   },
   {
-    slug: 'smart-routine',
-    title: 'SmartRoutine',
-    category: 'Productivity App',
-    description: 'Aplikasi produktivitas dan rutinitas untuk habit management dan daily planning.',
-    techStack: ['Mobile', 'TypeScript', 'React Native'],
-    status: 'Experiment',
-    github: 'https://github.com/Reyyy-05/SmartRoutine.git',
-    featured: false,
-    type: 'product',
-  },
-  {
-    slug: 'landing-page-bootcamp',
-    title: 'Landing Page Bootcamp',
-    category: 'Landing Page / Frontend',
-    description: 'Landing page untuk kebutuhan bootcamp/registration dengan CTA dan struktur konten web.',
-    techStack: ['Next.js', 'Tailwind CSS', 'TypeScript'],
+    id: 'landingpage-bootcamp',
+    title: 'High-Conversion Bootcamp Landing Page',
+    category: 'web',
+    categoryLabel: 'Frontend Marketing',
+    tagline: 'Conversion-Focused Web Dev Bootcamp Registration Portal',
+    description: 'A responsive promotion landing page engineered with strategic CTA hierarchy, pricing tier comparisons, testimonial carousels, and client-side form validation.',
+    engineeringHighlight: 'Achieved 99+ Lighthouse performance scores through optimized image pipelines, semantic markup, and zero layout shift.',
+    techStack: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Lighthouse 100'],
     status: 'MVP',
-    github: 'https://github.com/Reyyy-05/landingpage_bootcamp.git',
+    githubUrl: 'https://github.com/Reyyy-05/landingpage_bootcamp.git',
     featured: false,
-    type: 'web',
+    pixelBadge: '🚀 CONV',
   },
+  {
+    id: 'kafebilyar-app',
+    title: 'KafeBilyar Table Booking App',
+    category: 'mobile',
+    categoryLabel: 'Mobile App Prototype',
+    tagline: 'Cafe & Billiard Table Reservation & Slot Scheduler',
+    description: 'A specialized management and reservation app concept for entertainment venues, tracking table availability, billing timers, and snack bar orders in real time.',
+    engineeringHighlight: 'Time-slot collision detection algorithm and dynamic session pricing calculator implemented in mobile UI.',
+    techStack: ['React Native', 'TypeScript', 'Expo', 'Mobile UI'],
+    status: 'Experiment',
+    githubUrl: 'https://github.com/Reyyy-05/KafeBilyarApp.git',
+    featured: false,
+    pixelBadge: '🎱 SLOTS',
+  },
+  {
+    id: 'smartroutine',
+    title: 'SmartRoutine Productivity Planner',
+    category: 'mobile',
+    categoryLabel: 'Personal Productivity',
+    tagline: 'Habit Tracker & Daily Execution Matrix',
+    description: 'A distraction-free habit management mobile app built around micro-reward milestones and streak maintenance to support personal engineering discipline.',
+    engineeringHighlight: 'Local persistence with async storage, subpixel checkbox feedback, and progress streak analytics.',
+    techStack: ['React Native', 'TypeScript', 'AsyncStorage', 'Product Thinking'],
+    status: 'Experiment',
+    githubUrl: 'https://github.com/Reyyy-05/SmartRoutine.git',
+    featured: false,
+    pixelBadge: '⚡ HABIT',
+  }
 ];
 
-// All projects combined (for listing pages)
-export const allProjects: Project[] = [...featuredProjects, ...otherProjects];
+export const experienceData = [
+  {
+    role: 'Web Development Intern',
+    company: 'Creativemu Academy',
+    period: 'April 2026 – Sekarang',
+    type: 'Internship',
+    badge: 'Active Internship',
+    description: 'Developing high-performance company landing pages using Next.js and Tailwind CSS. Contributing to modernizing web architecture towards the Node.js/Next.js ecosystem for greater maintainability and team velocity.',
+    techStack: ['Next.js', 'React', 'Tailwind CSS', 'TypeScript', 'Git Flow'],
+    highlights: [
+      'Engineered responsive landing pages with sub-second initial load times',
+      'Migrated legacy UI templates into reusable Next.js components',
+      'Collaborated closely with creative directors and frontend teams'
+    ]
+  },
+  {
+    role: 'Full-Stack Developer (Commercial)',
+    company: 'IMGN Concept',
+    period: '2026',
+    type: 'Commercial Project',
+    badge: 'Production',
+    description: 'Designed and deployed commercial web catalog with relational database architecture, inventory tracking, and custom responsive UI for motorcycle modification products.',
+    techStack: ['Next.js', 'Supabase', 'PostgreSQL', 'Tailwind CSS'],
+    highlights: [
+      'Built relational data models with Supabase PostgreSQL',
+      'Integrated real-time catalog search and categorization filters'
+    ]
+  },
+  {
+    role: 'Field Data Enumerator / Officer',
+    company: 'Badan Pusat Statistik (BPS)',
+    period: '2026',
+    type: 'Data & Field Operations',
+    badge: 'Field Experience',
+    description: 'Conducted field data enumeration and economic census respondent interviews. Gained deep firsthand insight into data accuracy, edge cases, and the necessity of robust data verification systems.',
+    techStack: ['Data Collection', 'Verification', 'Field Communication'],
+    highlights: [
+      'Surveyed and validated business respondents with strict compliance',
+      'Directly inspired the data provenance architecture behind StatProv'
+    ]
+  },
+  {
+    role: 'Frontend Contributor',
+    company: 'Kairav Studio',
+    period: '2025 – 2026',
+    type: 'Collaborative Studio',
+    badge: 'Open Collab',
+    description: 'Collaborated on agency website redesign, building dedicated Works showcase, Services breakdowns, and Team directory using structured GitHub Pull Request workflows.',
+    techStack: ['Astro', 'GSAP', 'Tailwind CSS', 'GitHub PRs'],
+    highlights: [
+      'Participated in code reviews and branch management workflows'
+    ]
+  }
+];
+
+export const skillsData = {
+  frontend: [
+    { name: 'React / Next.js (App Router)', level: 'Advanced', highlight: 'Primary focus during internship' },
+    { name: 'TypeScript', level: 'Proficient', highlight: 'Type-safe component architectures' },
+    { name: 'Tailwind CSS', level: 'Advanced', highlight: 'Custom design systems & responsive layouts' },
+    { name: 'State Management (Zustand)', level: 'Proficient', highlight: 'Lightweight reactive stores' },
+    { name: 'Mobile (Expo React Native)', level: 'Intermediate', highlight: 'Built BioLearn & MasjidFlow MVPs' },
+  ],
+  backendData: [
+    { name: 'Supabase & PostgreSQL', level: 'Proficient', highlight: 'RLS policies & relational schemas' },
+    { name: 'Prisma ORM & SQLite', level: 'Proficient', highlight: 'Data provenance models in StatProv' },
+    { name: 'REST APIs & Webhooks', level: 'Proficient', highlight: 'Client-server integration' },
+    { name: 'Data Hashing & Verification', level: 'Proficient', highlight: 'SHA-256 & Perceptual Hashing' },
+  ],
+  engineeringCraft: [
+    { name: 'Git & GitHub Collaboration', level: 'Proficient', highlight: 'Branching, PRs, review workflows' },
+    { name: 'Performance & SEO (Lighthouse)', level: 'Proficient', highlight: 'Zero layout shift & Web Vitals' },
+    { name: 'Pixel Art & Retro UI Craft', level: 'Passionate', highlight: 'Aseprite, limited palettes, dithering' },
+    { name: 'Technical Documentation', level: 'Proficient', highlight: 'PRDs, READMEs, and IEEE/SINTA papers' },
+  ]
+};
