@@ -14,7 +14,8 @@ export const RetroDevConsole: React.FC = () => {
     { type: 'system', text: 'ReyhanOS v2.4 (Interactive Dev Terminal)' },
     { type: 'system', text: 'Ketik "help" atau klik perintah cepat di bawah ini untuk menjelajah.' },
   ]);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const terminalBodyRef = useRef<HTMLDivElement>(null);
+  const isFirstRender = useRef(true);
 
   const handleCommand = (cmd: string) => {
     const trimmed = cmd.trim().toLowerCase();
@@ -76,7 +77,13 @@ export const RetroDevConsole: React.FC = () => {
   };
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+    }
   }, [history]);
 
   const quickButtons = ['whoami', 'internship', 'projects', 'skills', 'contact', 'clear'];
@@ -103,7 +110,10 @@ export const RetroDevConsole: React.FC = () => {
           </div>
 
           {/* Terminal Body */}
-          <div className="p-4 sm:p-6 font-mono text-xs text-slate-300 min-h-[220px] max-h-[340px] overflow-y-auto space-y-2">
+          <div
+            ref={terminalBodyRef}
+            className="p-4 sm:p-6 font-mono text-xs text-slate-300 min-h-[220px] max-h-[340px] overflow-y-auto space-y-2"
+          >
             {history.map((line, idx) => (
               <div
                 key={idx}
@@ -118,7 +128,6 @@ export const RetroDevConsole: React.FC = () => {
                 {line.text}
               </div>
             ))}
-            <div ref={bottomRef} />
           </div>
 
           {/* Command Input Row */}
