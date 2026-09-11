@@ -39,18 +39,77 @@
   image-rendering: crisp-edges;
 }
 
-/* Subtle scanline overlay */
-.scanlines {
-  position: relative;
+/* Synthwave 3D Perspective Grid */
+.synthwave-grid {
+  background-image: 
+    linear-gradient(to right, rgba(0, 240, 255, 0.18) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 42, 133, 0.18) 1px, transparent 1px);
+  background-size: 36px 36px;
+  transform: perspective(300px) rotateX(60deg);
+  transform-origin: center top;
 }
-.scanlines::before {
+
+/* Text Glows */
+.text-glow-cyan {
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.4);
+}
+.text-glow-pink {
+  text-shadow: 0 0 8px rgba(255, 42, 133, 0.7), 0 0 20px rgba(255, 42, 133, 0.4);
+}
+.text-glow-green {
+  text-shadow: 0 0 8px rgba(57, 255, 20, 0.7), 0 0 20px rgba(57, 255, 20, 0.4);
+}
+.text-glow-purple {
+  text-shadow: 0 0 8px rgba(176, 38, 255, 0.7), 0 0 20px rgba(176, 38, 255, 0.4);
+}
+.text-glow-gold {
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.7), 0 0 18px rgba(245, 158, 11, 0.4);
+}
+
+/* CRT Screen Scanline Overlay */
+.crt-screen {
+  position: relative;
+  overflow: hidden;
+}
+.crt-screen::before {
   content: " ";
   display: block;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-  background-size: 100% 4px;
-  z-index: 2;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%);
+  background-size: 100% 3px;
+  z-index: 5;
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.6;
+}
+
+/* Pixel Button Bevel */
+.pixel-btn {
+  box-shadow: 0 3px 0 0 #000, inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.1s ease;
+}
+.pixel-btn:hover {
+  filter: brightness(1.1);
+}
+.pixel-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 0 #000, inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Gold RPG Frame */
+.rpg-frame {
+  border: 2px solid #F59E0B;
+  box-shadow: 
+    inset 0 0 0 1px #78350F,
+    0 0 0 1px #451A03,
+    0 4px 12px rgba(0, 0, 0, 0.7);
+}
+
+/* Dungeon brick pattern */
+.dungeon-bg {
+  background-color: #0A0E17;
+  background-image: 
+    linear-gradient(rgba(30, 41, 59, 0.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 41, 59, 0.25) 1px, transparent 1px);
+  background-size: 24px 24px;
 }

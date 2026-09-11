@@ -1,9 +1,9 @@
 import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
 import { RetroStatusBar } from '@/components/RetroStatusBar';
-import { ProjectsSection } from '@/components/ProjectsSection';
+import { RetroArcadeSection } from '@/components/RetroArcadeSection';
 import { ExperienceSection } from '@/components/ExperienceSection';
-import { SkillsSection } from '@/components/SkillsSection';
+import { RpgSkillsWindow } from '@/components/RpgSkillsWindow';
 import { RetroDevConsole } from '@/components/RetroDevConsole';
 import { ContactSection } from '@/components/ContactSection';
 import { Footer } from '@/components/Footer';
@@ -20,14 +20,14 @@ export default function Home() {
       {/* Retro RPG Developer HUD Strip */}
       <RetroStatusBar />
 
-      {/* Real Projects Showcase from GitHub */}
-      <ProjectsSection />
+      {/* Pixel Realms - Retro Arcade & Neon Projects Showcase (Home.jpeg / projects.jpeg) */}
+      <RetroArcadeSection />
 
       {/* Internship & Experience Section */}
       <ExperienceSection />
 
-      {/* Tech Stack & Engineering Craft */}
-      <SkillsSection />
+      {/* Retro OS Window - RPG Inventory Skills Grid (skills.jpeg) */}
+      <RpgSkillsWindow />
 
       {/* Interactive Developer Terminal Easter Egg */}
       <RetroDevConsole />
