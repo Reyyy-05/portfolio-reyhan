@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Github, FileText, Menu, X, ArrowUpRight, Terminal } from 'lucide-react';
+import { MinesweeperIcon } from './PixelIcons';
 
 export const Navbar: React.FC = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -48,9 +49,11 @@ export const Navbar: React.FC = () => {
           {/* Logo */}
           <a
             href="#"
-            className="flex items-center gap-2 group font-mono text-sm tracking-wide text-text-primary"
+            className="flex items-center gap-2.5 group font-mono text-sm tracking-wide text-text-primary"
           >
-            <span className="w-2.5 h-2.5 bg-accent rounded-sm shadow-pixel group-hover:rotate-45 transition-transform duration-300"></span>
+            <div className="w-7 h-7 rounded-lg bg-bg-surface border border-accent/40 flex items-center justify-center text-accent shadow-pixel group-hover:scale-110 group-hover:border-accent group-hover:shadow-[0_0_15px_rgba(94,234,212,0.4)] transition-all duration-300">
+              <MinesweeperIcon size={18} />
+            </div>
             <span className="font-bold text-text-primary group-hover:text-accent transition-colors">
               reyhan<span className="text-accent">.dev</span>
             </span>
