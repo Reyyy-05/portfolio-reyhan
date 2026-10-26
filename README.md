@@ -1,107 +1,73 @@
-# Reyhan Portfolio — Build Log
+# Portofolio Reyhan Albar Fahryan (v3 - Modern Obsidian Edition)
 
-A calm, precise, and technical-but-warm personal portfolio website for **Reyhan Albar Fahryan**, an Informatics Student & Digital Product Builder. This workspace showcases selected web development, mobile application, data-oriented system, and digital product prototype builds.
+Website portofolio modern berkinerja tinggi yang terinspirasi dari arsitektur dan craftsmanship [mmirza.site](https://mmirza.site/en), dibangun menggunakan **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS**, dan **Web Audio API**.
 
-## 🚀 Live Demo
+---
 
-View the live, production-ready website here:
-👉 **[portfolio-reyhan-two.vercel.app](https://portfolio-reyhan-two.vercel.app/)**
+## 🚀 Fitur Unggulan
 
-## 📸 Preview
+1. **Hero 3D Depth Layer & Canvas Vortex:**
+   - Layering tipografi Oswald editorial dengan foto profil transparan dan efek partikel vortex interaktif yang mengikuti pergerakan kursor.
+2. **Dual Navigation System:**
+   - **Desktop:** Floating pill bar dengan pendaran lampu aktif (*nav-lamp-top* glow), avatar, dan theme switch.
+   - **Mobile:** Floating bottom bar dengan active slider transisi *cubic-bezier*.
+3. **Procedural Web Audio Engine:**
+   - Sintesis audio interaktif via Web Audio API (`AudioContext`) tanpa memerlukan aset file MP3 eksternal (0-byte overhead).
+4. **Interactive Experience Accordion:**
+   - Accordion riwayat kerja/magang (`Creativemu Academy`, `IMGN Concept`, `Kelompok Tani`, `BPS`) dengan logo perusahaan dan badge status aktif.
+5. **Projects Showcase & Case Study Pages:**
+   - Infinite horizontal marquee track pada beranda.
+   - Filter kategori proyek (All, Web, Mobile, Systems/Data).
+   - Halaman detail studi kasus dinamis (`/projects/[slug]`) dengan mockup frame browser, problem statement, dan sorotan rekayasa teknis.
+6. **Live GitHub Contribution Widget:**
+   - Visualisasi grid komit 52 minggu, streak, dan metrik repositori untuk akun `@Reyyy-05`.
+7. **Contact Form Berbasis Next.js Server Actions:**
+   - Terintegrasi langsung dengan **Resend API** untuk pengiriman email ke inbox Anda.
+   - Dilengkapi *honeypot* anti-spam.
 
-![Portfolio Preview](./public/preview.png)
+---
 
-*Note: Add a screenshot of the website to `public/preview.png` to update this preview.*
-
-## 🛠️ Tech Stack
-
-This portfolio is built on a modern, static stack focused on speed, performance, and clean code:
-
-* **[Astro](https://astro.build/)** — Static site framework for optimized build performance
-* **[TypeScript](https://www.typescriptlang.org/)** — Strictly-typed JavaScript development
-* **[Tailwind CSS](https://tailwindcss.com/)** — Modern, utility-first CSS engine (v4)
-* **[Vercel](https://vercel.com/)** — Production hosting and deployment platform
-* **[GitHub](https://github.com/)** — Version control and repository hosting
-
-## ✨ Key Features
-
-* **Premium Dark Portfolio Design**: Harmonious dark mode UI with teal (`#5EEAD4`) highlights.
-* **Build Log Concept**: A clean workspace aesthetic presenting projects as structured builder entries.
-* **Fully Responsive Layout**: Optimised for both mobile viewports and large desktop screens.
-* **Project Operating Board Hero**: A dashboard-inspired hero section summarizing builder focus and navigation.
-* **Featured & Secondary Projects**: Hierarchical layout highlighting main achievements and auxiliary experiments.
-* **Skills & Experience Sections**: Structured categorisation of technologies, timelines, and career milestones.
-* **GitHub Project Links**: Integrated access to source repositories for transparent verification.
-* **SEO-Ready**: Optimized HTML5 semantic layout, meta tags, and schema readiness.
-* **Vercel Deployment**: Continuous integration and deployment pipeline.
-
-## 📁 Featured Projects
-
-The portfolio highlights key academic, personal, and collaborative projects, including:
-
-* **IMGN Concept Web Catalog** — Product catalog web project.
-* **StatProv** — Data provenance and dataset validation system.
-* **BioLearn** — Mobile learning app prototype.
-* **MasjidFlow** — Mosque activity management mobile app.
-* **Kairav Studio** — Collaborative studio and portfolio website.
-* **Kalkulator Ahli Waris Islami** — Islamic inheritance calculator web app.
-
-## 📂 Project Structure
-
-```text
-src/
-├── components/  # Reusable UI component blocks (Navbar, Hero, Cards, etc.)
-├── data/        # Static TypeScript records for projects, skills, and experiences
-├── layouts/     # Base layouts including HTML head, fonts, and scripts
-├── pages/       # Site pages and routing entries
-└── styles/      # Global styling rules and Tailwind configs
-```
-
-## 🚀 Getting Started
-
-To run this project locally, clone the repository and install the dependencies:
+## 🛠️ Menjalankan di Komputer Lokal
 
 ```bash
-# Clone the repository
-git clone https://github.com/Reyyy-05/portfolio-reyhan.git
-cd portfolio-reyhan
+# Masuk ke direktori
+cd portfolio-v3
 
-# Install dependencies
-npm install
-
-# Start the development server
+# Jalankan development server
 npm run dev
 ```
 
-The site will be running at `http://localhost:4321/`.
+Buka [http://localhost:3000](http://localhost:3000) di browser Anda.
 
-## 📦 Production Build
+---
 
-Generate a static build and preview it locally:
+## 🌐 Panduan Deploy ke Vercel (Online 1-Klik)
+
+### Langkah 1: Push ke GitHub
+Buat repository baru di akun GitHub Anda (misal: `portfolio-v3`), lalu jalankan:
 
 ```bash
-# Create production build (files output to ./dist/)
-npm run build
-
-# Preview the production build locally
-npm run preview
+cd /home/user/Projects/portofolio/portfolio-v3
+git init
+git add .
+git commit -m "feat: initial commit modern portfolio v3"
+git branch -M main
+git remote add origin https://github.com/Reyyy-05/portfolio-v3.git
+git push -u origin main
 ```
 
-## 🌐 Deployment
+### Langkah 2: Import ke Vercel
+1. Buka [vercel.com](https://vercel.com) dan login dengan akun GitHub Anda.
+2. Klik tombol **"Add New..."** lalu pilih **"Project"**.
+3. Pilih repository `portfolio-v3` yang baru saja Anda push.
+4. Pada bagian **Environment Variables**, tambahkan:
+   - `RESEND_API_KEY` : `your_resend_api_key_here`
+   - `CONTACT_RECEIVER_EMAIL` : `rayhanalbar75@gmail.com`
+   - `NEXT_PUBLIC_SITE_URL` : URL Vercel Anda (contoh `https://reyhanalbar.vercel.app`)
+5. Klik **"Deploy"**! Dalam 1–2 menit website portofolio Anda sudah online dan dapat diakses publik.
 
-This portfolio is configured for automated deployments via **Vercel**.
-
-* **Build Command:** `npm run build`
-* **Output Directory:** `dist`
-* **Live URL:** `https://portfolio-reyhan-two.vercel.app/`
-
-## 📝 Notes
-
-* **Project Repositories:** Some project cards link directly to their corresponding GitHub repositories for open-source inspection.
-* **Resume PDF:** A PDF copy of the resume can be placed at `public/cv-reyhan.pdf` for direct download buttons on the site.
-* **Portfolio Content:** The information is sourced from authentic academic courses, personal builds, and verified collaborative experiences.
-
-## 👤 Author
-
-**Reyhan Albar Fahryan**
-* GitHub: [@Reyyy-05](https://github.com/Reyyy-05)
+### Langkah 3: Konfigurasi Custom Domain (Opsional Nanti)
+Jika Anda nanti sudah membeli domain sendiri (misal `reyhanalbar.com` atau `reyhanalbar.dev`):
+1. Masuk ke project di Dashboard Vercel -> tab **Settings** -> **Domains**.
+2. Ketik nama domain Anda lalu klik **Add**.
+3. Vercel akan menampilkan DNS Record (CNAME atau A record). Masukkan nilai tersebut di penyedia domain Anda (Cloudflare, Niagahoster, Domainesia, dsb.).

@@ -3,9 +3,9 @@
 out/
 dist/
 
-# generated types
-.astro/
+# generated types & build info
 next-env.d.ts
+*.tsbuildinfo
 
 # dependencies
 node_modules/
@@ -18,16 +18,14 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# environment variables
+# environment variables (keep secrets out of Git)
 .env*.local
 .env
 .env.production
 
-# macOS-specific files
+# OS & editor files
 .DS_Store
 *.pem
-
-# IDEs and editors
 .idea/
 .vscode/
 *.suo
@@ -38,4 +36,3 @@ pnpm-debug.log*
 
 # vercel
 .vercel
-

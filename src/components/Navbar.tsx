@@ -1,149 +1,308 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Github, FileText, Menu, X, ArrowUpRight, Terminal } from 'lucide-react';
-import { MinesweeperIcon } from './PixelIcons';
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useLocale } from '@/context/LocaleContext';
+import { playNavSound, playThemeSound } from '@/lib/audio';
+import { PROFILE } from '@/data/portfolio';
 
-export const Navbar: React.FC = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+const NAV_ITEMS = [
+  {
+    key: 'home',
+    href: '/',
+    label: { id: 'Beranda', en: 'Home' },
+    icon: (
+      <path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5Z" />
+    ),
+  },
+  {
+    key: 'about',
+    href: '/about',
+    label: { id: 'Tentang', en: 'About' },
+    icon: (
+      <>
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" />
+      </>
+    ),
+  },
+  {
+    key: 'experience',
+    href: '/experience',
+    label: { id: 'Pengalaman', en: 'Experience' },
+    icon: (
+      <>
+        <rect x="2" y="7" width="20" height="13" rx="2" />
+        <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+      </>
+    ),
+  },
+  {
+    key: 'projects',
+    href: '/projects',
+    label: { id: 'Proyek', en: 'Projects' },
+    icon: (
+      <path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6Z" />
+    ),
+  },
+  {
+    key: 'contact',
+    href: '/contact',
+    label: { id: 'Kontak', en: 'Contact' },
+    icon: (
+      <>
+        <rect x="2" y="4" width="20" height="16" rx="2" />
+        <path d="m22 7-10 6L2 7" />
+      </>
+    ),
+  },
+];
+
+function isRouteActive(pathname: string, href: string) {
+  if (href === '/') return pathname === '/';
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+export function Navbar() {
+  const pathname = usePathname() || '/';
+  const { locale, setLocale } = useLocale();
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
 
   useEffect(() => {
-    const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
-      setScrollProgress(progress);
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const root = document.documentElement;
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') {
+        root.classList.remove('light', 'dark');
+        root.classList.add(saved);
+        setTheme(saved);
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const initial = prefersDark ? 'dark' : 'light';
+        root.classList.remove('light', 'dark');
+        root.classList.add(initial);
+        setTheme(initial);
+      }
+    } catch {}
   }, []);
 
-  const navLinks = [
-    { label: 'Proyek', href: '#projects' },
-    { label: 'Pengalaman', href: '#experience' },
-    { label: 'Keahlian', href: '#skills' },
-    { label: 'Kontak', href: '#contact' },
-  ];
+  // Reveal observer matching reference site
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal:not(.is-in)');
+    if (!els.length) return;
+    if (
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      !('IntersectionObserver' in window)
+    ) {
+      els.forEach((el) => el.classList.add('is-in'));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in');
+            io.unobserve(entry.target);
+          }
+        }
+      },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [pathname]);
+
+  const handleThemeToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const root = document.documentElement;
+    const isDark = root.classList.contains('dark');
+    const next = isDark ? 'light' : 'dark';
+    playThemeSound(next === 'light');
+
+    const apply = () => {
+      root.classList.remove('light', 'dark');
+      root.classList.add(next);
+      setTheme(next);
+      try {
+        localStorage.setItem('theme', next);
+      } catch {}
+    };
+
+    const docWithVT = document as Document & {
+      startViewTransition?: (cb: () => void) => { ready: Promise<void>; finished: Promise<void> };
+    };
+
+    if (
+      !docWithVT.startViewTransition ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      apply();
+      return;
+    }
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const maxR = Math.hypot(
+      Math.max(cx, window.innerWidth - cx),
+      Math.max(cy, window.innerHeight - cy)
+    );
+
+    root.setAttribute('data-theme-transition', '');
+    const vt = docWithVT.startViewTransition(apply);
+    vt.ready
+      .then(() => {
+        root.animate(
+          {
+            clipPath: [
+              `circle(0px at ${cx}px ${cy}px)`,
+              `circle(${maxR}px at ${cx}px ${cy}px)`,
+            ],
+          },
+          {
+            duration: 650,
+            easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+            pseudoElement: '::view-transition-new(root)',
+          }
+        );
+      })
+      .catch(() => {});
+    vt.finished.finally(() => {
+      root.removeAttribute('data-theme-transition');
+    });
+  };
 
   return (
-    <>
-      <header
-        id="navbar"
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-bg/85 backdrop-blur-xl border-b border-border/70 py-3 shadow-md'
-            : 'bg-transparent py-5'
-        }`}
-      >
-        {/* Scroll Progress Bar */}
-        <div
-          className="absolute top-0 left-0 h-[2px] bg-gradient-to-r from-accent via-accent-cyan to-accent-purple transition-all duration-150"
-          style={{ width: `${scrollProgress}%` }}
-        />
+    <header className="site-bar sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur">
+      <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+        <Link
+          href="/"
+          onClick={() => playNavSound(0)}
+          className="inline-flex items-center font-display text-xl font-bold tracking-wider uppercase sm:text-2xl"
+        >
+          {PROFILE.fullName}
+        </Link>
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-          
-          {/* Logo */}
-          <a
-            href="#"
-            className="flex items-center gap-2.5 group font-mono text-sm tracking-wide text-text-primary"
+        <nav aria-label="Main navigation" className="hidden md:block">
+          <ul className="relative hidden items-center gap-1 rounded-full border border-border bg-surface/80 px-1.5 py-1 shadow-lg backdrop-blur-lg md:flex">
+            {NAV_ITEMS.map((item, idx) => {
+              const active = isRouteActive(pathname, item.href);
+              return (
+                <li key={item.key} className="relative">
+                  <Link
+                    href={item.href}
+                    aria-current={active ? 'page' : undefined}
+                    onClick={() => playNavSound(idx)}
+                    className={`relative flex items-center justify-center rounded-full px-5 py-1.5 text-sm font-semibold whitespace-nowrap transition-colors ${
+                      active ? 'bg-surface-2 text-text' : 'text-muted hover:text-text'
+                    }`}
+                  >
+                    <span>{item.label[locale]}</span>
+                    {active && <span aria-hidden="true" className="nav-lamp-top" />}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <div
+            role="group"
+            aria-label="Language"
+            className="inline-flex items-center rounded-md border border-border bg-surface p-0.5 text-xs"
           >
-            <div className="w-7 h-7 rounded-lg bg-bg-surface border border-accent/40 flex items-center justify-center text-accent shadow-pixel group-hover:scale-110 group-hover:border-accent group-hover:shadow-[0_0_15px_rgba(94,234,212,0.4)] transition-all duration-300">
-              <MinesweeperIcon size={18} />
-            </div>
-            <span className="font-bold text-text-primary group-hover:text-accent transition-colors">
-              reyhan<span className="text-accent">.dev</span>
-            </span>
-            <span className="hidden sm:inline-block text-[10px] text-text-muted bg-bg-surface px-1.5 py-0.5 rounded border border-border/50">
-              v2.0
-            </span>
-          </a>
-
-          {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-7">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-text-secondary hover:text-accent transition-colors duration-200"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          {/* Actions: GitHub & Resume */}
-          <div className="hidden md:flex items-center gap-3">
-            <a
-              href="https://github.com/Reyyy-05"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 text-text-secondary hover:text-text-primary hover:bg-bg-card rounded-lg border border-border/40 hover:border-border transition-all"
-              aria-label="GitHub Profile"
-            >
-              <Github className="w-4 h-4" />
-            </a>
-
-            <a
-              href="/cv-reyhan.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 bg-accent/10 text-accent hover:bg-accent hover:text-bg font-mono text-xs font-semibold px-3.5 py-2 rounded-lg border border-accent/30 transition-all duration-200 shadow-sm"
-            >
-              <FileText className="w-3.5 h-3.5" />
-              <span>Resume PDF</span>
-            </a>
+            {(['id', 'en'] as const).map((lang) => {
+              const active = locale === lang;
+              return (
+                <button
+                  key={lang}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => setLocale(lang, true)}
+                  className={`cursor-pointer rounded px-2 py-1 font-medium uppercase transition-colors ${
+                    active ? 'bg-primary text-primary-fg' : 'text-muted hover:text-text'
+                  }`}
+                >
+                  {lang}
+                </button>
+              );
+            })}
           </div>
 
-          {/* Mobile Menu Button */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-text-secondary hover:text-text-primary rounded-lg border border-border/50"
-            aria-label="Toggle Navigation"
+            type="button"
+            aria-label="Toggle theme"
+            onClick={handleThemeToggle}
+            className="inline-flex size-9 cursor-pointer items-center justify-center rounded-md border border-border bg-surface text-text transition-colors hover:border-border-strong"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="size-4"
+            >
+              {theme === 'dark' ? (
+                <>
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                </>
+              ) : (
+                <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" />
+              )}
+            </svg>
           </button>
         </div>
-
-        {/* Mobile Dropdown Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-bg-card/95 backdrop-blur-xl border-b border-border px-4 py-5 space-y-3">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-base font-medium text-text-secondary hover:text-accent py-1.5"
-              >
-                {link.label}
-              </a>
-            ))}
-            <div className="pt-3 border-t border-border flex items-center gap-3">
-              <a
-                href="https://github.com/Reyyy-05"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center gap-2 border border-border py-2 rounded-lg text-sm text-text-secondary"
-              >
-                <Github className="w-4 h-4" />
-                <span>GitHub</span>
-              </a>
-              <a
-                href="/cv-reyhan.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center gap-2 bg-accent text-bg font-mono text-xs font-semibold py-2 rounded-lg"
-              >
-                <FileText className="w-4 h-4" />
-                <span>Resume</span>
-              </a>
-            </div>
-          </div>
-        )}
-      </header>
-    </>
+      </div>
+    </header>
   );
-};
+}
+
+export function MobileNav() {
+  const pathname = usePathname() || '/';
+  const { locale } = useLocale();
+
+  return (
+    <nav
+      aria-label="Main navigation"
+      className="site-bar pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-3 pt-2 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden"
+    >
+      <ul className="pointer-events-auto relative grid w-full max-w-md grid-cols-5 items-center gap-0.5 rounded-full border border-border bg-surface/80 p-1 shadow-lg backdrop-blur-lg">
+        {NAV_ITEMS.map((item, idx) => {
+          const active = isRouteActive(pathname, item.href);
+          return (
+            <li key={item.key} className="relative min-w-0">
+              <Link
+                href={item.href}
+                aria-current={active ? 'page' : undefined}
+                onClick={() => playNavSound(idx)}
+                className={`relative flex flex-col items-center justify-center gap-0.5 rounded-full px-1 py-1.5 text-[10px] leading-tight font-semibold transition-colors ${
+                  active ? 'bg-surface-2 text-text' : 'text-muted hover:text-text'
+                }`}
+              >
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.9"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="size-4 shrink-0"
+                >
+                  {item.icon}
+                </svg>
+                <span className="max-w-full truncate">{item.label[locale]}</span>
+                {active && <span aria-hidden="true" className="nav-lamp-top" />}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
+}

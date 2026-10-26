@@ -1,55 +1,87 @@
 import type { Metadata } from 'next';
+import { Inter, Oswald, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import { LocaleProvider } from '@/context/LocaleContext';
+import { Navbar, MobileNav } from '@/components/Navbar';
+import { Footer } from '@/components/Footer';
+import { IntroNotice } from '@/components/IntroNotice';
+import { PROFILE } from '@/data/portfolio';
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const oswald = Oswald({
+  subsets: ['latin'],
+  variable: '--font-oswald',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  title: 'Reyhan Albar Fahryan — Frontend Web Developer Intern & Informatics Student',
+  title: `${PROFILE.fullName} — Fullstack Developer & IoT Builder`,
   description:
-    'Website Portofolio Reyhan Albar Fahryan. Web Development Intern di Creativemu Academy & Mahasiswa Informatika UNU Yogyakarta. Membangun produk digital berbasis Next.js, React, TypeScript, Supabase, dan Expo.',
+    'Portfolio of Reyhan Albar Fahryan — Informatics student at Universitas Nahdlatul Ulama Yogyakarta and Web Development Intern at Creativemu Academy.',
   keywords: [
     'Reyhan Albar Fahryan',
-    'Frontend Developer',
-    'Next.js Portfolio',
-    'Creativemu Academy Intern',
-    'React Developer Indonesia',
-    'UNU Yogyakarta Informatika'
+    'Fullstack Developer',
+    'Next.js',
+    'Laravel',
+    'Flutter',
+    'IoT',
+    'UNU Yogyakarta',
+    'Creativemu Academy',
   ],
-  authors: [{ name: 'Reyhan Albar Fahryan', url: 'https://github.com/Reyyy-05' }],
+  authors: [{ name: PROFILE.fullName, url: PROFILE.githubUrl }],
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://reyhanalbar.vercel.app'
+  ),
   openGraph: {
-    title: 'Reyhan Albar Fahryan — Frontend Web Developer',
+    title: `${PROFILE.fullName} — Fullstack Developer & IoT Builder`,
     description:
-      'Koleksi 10+ proyek nyata, repositori GitHub teruji, dan rekam jejak magang web development berbasis Next.js & React.',
+      'Informatics student at UNU Yogyakarta & Web Development Intern at Creativemu Academy.',
     url: 'https://reyhanalbar.vercel.app',
-    siteName: 'Reyhan Albar Portfolio',
-    locale: 'id_ID',
+    siteName: PROFILE.fullName,
+    locale: 'en_US',
     type: 'website',
-  },
-  icons: {
-    icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon.ico' },
-    ],
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
   },
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="id" className="scroll-smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="bg-bg text-text-primary min-h-screen flex flex-col font-sans selection:bg-accent/25 selection:text-accent">
-        {children}
+    <html
+      lang="en"
+      className={`dark ${inter.variable} ${oswald.variable} ${jetbrainsMono.variable}`}
+      data-sound-volume="80"
+      suppressHydrationWarning
+    >
+      <body className="flex min-h-dvh flex-col bg-bg font-sans text-body text-text antialiased">
+        <LocaleProvider>
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-fg"
+          >
+            Skip to content
+          </a>
+          <Navbar />
+          <MobileNav />
+          <main id="main" className="relative isolate flex-1">
+            {children}
+          </main>
+          <Footer />
+          <IntroNotice />
+        </LocaleProvider>
       </body>
     </html>
   );
