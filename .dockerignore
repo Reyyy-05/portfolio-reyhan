@@ -1,0 +1,11 @@
+node_modules
+.next
+.git
+.gitignore
+*.pem
+.env*.local
+.DS_Store
+*.tsbuildinfo
+Dockerfile*
+docker-compose*.yml
+README.md

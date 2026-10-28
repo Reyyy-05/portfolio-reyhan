@@ -1,0 +1,47 @@
+services:
+  # Next.js Web Portfolio Application
+  portfolio-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: reyhan-portfolio-web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+      - RESEND_API_KEY=${RESEND_API_KEY:-}
+      - CONTACT_RECEIVER_EMAIL=${CONTACT_RECEIVER_EMAIL:-rayhanalbar75@gmail.com}
+      - GITHUB_USERNAME=${GITHUB_USERNAME:-Reyyy-05}
+    env_file:
+      - path: .env.local
+        required: false
+    networks:
+      - portfolio-network
+
+  # Database Service (PostgreSQL) - Siap pakai jika ingin migrasi data/form/analytics ke DB
+  portfolio-db:
+    image: postgres:16-alpine
+    container_name: reyhan-portfolio-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-portfolio_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-portfolio_password123}
+      POSTGRES_DB: ${POSTGRES_DB:-portfolio_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init-db:/docker-entrypoint-initdb.d:ro
+    networks:
+      - portfolio-network
+
+networks:
+  portfolio-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
