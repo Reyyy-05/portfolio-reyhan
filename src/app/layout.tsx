@@ -26,31 +26,73 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: `${PROFILE.fullName} — Fullstack Developer & IoT Builder`,
+  title: {
+    default: `${PROFILE.fullName} — Mahasiswa Informatika UNU Yogyakarta & Fullstack Developer`,
+    template: `%s | ${PROFILE.fullName}`,
+  },
   description:
-    'Portfolio of Reyhan Albar Fahryan — Informatics student at Universitas Nahdlatul Ulama Yogyakarta and Web Development Intern at Creativemu Academy.',
+    'Situs Portofolio Resmi Reyhan Albar Fahryan. Mahasiswa S1 Informatika Universitas Nahdlatul Ulama Yogyakarta, Web Development Intern di Creativemu Academy, dan Top 6 Pemenang Sayembara Desain Logo HUT ke-425 Kabupaten Tegal 2025.',
   keywords: [
     'Reyhan Albar Fahryan',
-    'Fullstack Developer',
-    'Next.js',
-    'Laravel',
-    'Flutter',
-    'IoT',
-    'UNU Yogyakarta',
+    'Reyhan Albar',
+    'reyhanalbar.vercel.app',
+    'Reyyy-05',
+    'Informatika UNU Yogyakarta',
+    'Universitas Nahdlatul Ulama Yogyakarta',
     'Creativemu Academy',
+    'Fullstack Developer Indonesia',
+    'IoT Builder',
+    'Sayembara Logo HUT 425 Tegal',
+    'Tegal Luwih Apik',
+    'NIRANA IoT',
+    'Next.js Portfolio',
+    'Laravel Bootcamp',
   ],
   authors: [{ name: PROFILE.fullName, url: PROFILE.githubUrl }],
+  creator: PROFILE.fullName,
+  publisher: PROFILE.fullName,
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || 'https://reyhanalbar.vercel.app'
   ),
+  alternates: {
+    canonical: 'https://reyhanalbar.vercel.app',
+  },
   openGraph: {
-    title: `${PROFILE.fullName} — Fullstack Developer & IoT Builder`,
+    title: `${PROFILE.fullName} — Mahasiswa Informatika UNU Yogyakarta & Fullstack Developer`,
     description:
-      'Informatics student at UNU Yogyakarta & Web Development Intern at Creativemu Academy.',
+      'Portofolio resmi Reyhan Albar Fahryan: Mahasiswa Informatika UNU Yogyakarta, Web Development Intern Creativemu Academy, dan Pemenang Desain Logo HUT ke-425 Kabupaten Tegal.',
     url: 'https://reyhanalbar.vercel.app',
-    siteName: PROFILE.fullName,
-    locale: 'en_US',
-    type: 'website',
+    siteName: 'Reyhan Albar Fahryan Official Portfolio',
+    locale: 'id_ID',
+    alternateLocale: 'en_US',
+    type: 'profile',
+    images: [
+      {
+        url: '/images/reyhan-portrait.png',
+        width: 960,
+        height: 1280,
+        alt: PROFILE.fullName,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${PROFILE.fullName} — Mahasiswa Informatika UNU Yogyakarta & Fullstack Developer`,
+    description:
+      'Portofolio resmi Reyhan Albar Fahryan: Mahasiswa Informatika UNU Yogyakarta, Web Development Intern Creativemu Academy, dan Top 6 Sayembara Logo HUT 425 Tegal.',
+    creator: '@reyhanalbar_',
+    images: ['/images/reyhan-portrait.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 

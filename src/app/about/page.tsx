@@ -3,7 +3,7 @@
 import React from 'react';
 import { PhotoTilt } from '@/components/PhotoTilt';
 import { useLocale } from '@/context/LocaleContext';
-import { PROFILE } from '@/data/portfolio';
+import { PROFILE, AWARDS_AND_PUBLICATIONS } from '@/data/portfolio';
 
 export default function AboutPage() {
   const { locale } = useLocale();
@@ -173,6 +173,101 @@ export default function AboutPage() {
               </div>
             </section>
           </div>
+
+          <aside aria-labelledby="awards-heading" className="space-y-8 md:col-span-5">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="inline-block size-2 rounded-full bg-emerald-400" />
+                <h2 id="awards-heading" className="text-h2 font-bold">
+                  {locale === 'id' ? 'Prestasi & Liputan' : 'Honors & Press'}
+                </h2>
+              </div>
+              <p className="mt-1 text-xs text-muted">
+                {locale === 'id'
+                  ? 'Rekam jejak kompetisi, riset terapan kampus UNU Yogyakarta, dan publikasi media.'
+                  : 'Track record in open competitions, UNU Yogyakarta applied research, and media press.'}
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {AWARDS_AND_PUBLICATIONS.map((item) => (
+                <article
+                  key={item.id}
+                  className="rounded-xl border border-border bg-surface p-5 transition-colors hover:border-primary/50 hover:bg-surface-2"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 font-mono text-[11px] font-medium text-primary">
+                      {item.badge[locale]}
+                    </span>
+                    <span className="font-mono text-xs text-muted">{item.year}</span>
+                  </div>
+
+                  <h3 className="mt-3 text-sm font-semibold leading-snug text-text">
+                    {item.title[locale]}
+                  </h3>
+
+                  <p className="mt-1 font-mono text-xs text-muted">
+                    {item.issuer[locale]}
+                  </p>
+
+                  <p className="mt-3 text-xs leading-relaxed text-muted">
+                    {item.summary[locale]}
+                  </p>
+
+                  {item.url && (
+                    <div className="mt-4 border-t border-border/60 pt-3">
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
+                      >
+                        <span>{item.sourceLabel || (locale === 'id' ? 'Baca Sumber Publikasi' : 'Read Publication')}</span>
+                        <svg
+                          aria-hidden="true"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="size-3"
+                        >
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                          <polyline points="15 3 21 3 21 9" />
+                          <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg>
+                      </a>
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
+
+            <div className="rounded-xl border border-border/80 bg-surface/50 p-5 font-mono text-xs text-muted">
+              <div className="flex items-center gap-2 font-semibold text-text">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="size-4 text-primary"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                <span>{locale === 'id' ? 'Profil Akademik Resmi' : 'Verified Academic Entity'}</span>
+              </div>
+              <p className="mt-2 text-[11px] leading-relaxed">
+                {locale === 'id'
+                  ? 'Terdaftar sebagai mahasiswa aktif S1 Informatika angkatan 2023 di Universitas Nahdlatul Ulama Yogyakarta (UNUYO). Terverifikasi pada basis data PDDIKTI & ekosistem digital kampus.'
+                  : 'Enrolled as an active undergraduate Informatics student (Class of 2023) at Universitas Nahdlatul Ulama Yogyakarta. Verified on higher education registries.'}
+              </p>
+            </div>
+          </aside>
         </div>
       </div>
     </div>

@@ -7,29 +7,75 @@ import { ExperienceAccordion } from '@/components/ExperienceAccordion';
 import { SkillGlobe } from '@/components/SkillGlobe';
 import { GitHubSkyline } from '@/components/GitHubSkyline';
 import { useLocale } from '@/context/LocaleContext';
-import { EXPERIENCES, PROJECTS, PROFILE } from '@/data/portfolio';
+import { EXPERIENCES, PROJECTS, PROFILE, AWARDS_AND_PUBLICATIONS } from '@/data/portfolio';
 
 export default function HomePage() {
   const { locale } = useLocale();
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: PROFILE.fullName,
-    url: 'https://reyhanalbar.vercel.app',
-    description: PROFILE.aboutLead[locale],
-    jobTitle: 'Web Development Intern at Creativemu Academy',
-    image: PROFILE.profilePhoto,
-    sameAs: [PROFILE.linkedinUrl, PROFILE.githubUrl, PROFILE.instagramUrl],
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Yogyakarta',
-      addressCountry: 'ID',
-    },
-    alumniOf: {
-      '@type': 'CollegeOrUniversity',
-      name: PROFILE.education.school,
-    },
+    '@graph': [
+      {
+        '@type': 'Person',
+        '@id': 'https://reyhanalbar.vercel.app/#person',
+        name: PROFILE.fullName,
+        alternateName: ['Reyhan Albar', 'Reyhan Albar Fahryan', 'Reyyy-05'],
+        url: 'https://reyhanalbar.vercel.app',
+        image: 'https://reyhanalbar.vercel.app/images/reyhan-portrait.png',
+        jobTitle: 'Fullstack Developer, Mobile Builder & IoT Builder',
+        description:
+          locale === 'id'
+            ? 'Mahasiswa S1 Informatika di Universitas Nahdlatul Ulama Yogyakarta (UNU Yogyakarta), Web Development Intern di Creativemu Academy, dan Pemenang Desain Logo HUT ke-425 Kabupaten Tegal 2025.'
+            : 'Informatics student at Universitas Nahdlatul Ulama Yogyakarta, Web Development Intern at Creativemu Academy, and Top 6 Winner of 425th Tegal Anniversary Logo Competition 2025.',
+        sameAs: [
+          PROFILE.linkedinUrl,
+          PROFILE.githubUrl,
+          PROFILE.instagramUrl,
+          'https://ayotegal.com',
+        ],
+        alumniOf: {
+          '@type': 'CollegeOrUniversity',
+          name: PROFILE.education.school,
+          alternateName: 'UNU Yogyakarta',
+          url: 'https://unu-jogja.ac.id',
+        },
+        worksFor: {
+          '@type': 'Organization',
+          name: 'Creativemu Academy',
+        },
+        award: [
+          'Top 6 Pemenang Sayembara Desain Logo HUT ke-425 Kabupaten Tegal 2025 (Kategori Umum mewakili UNU Yogyakarta)',
+        ],
+        knowsAbout: [
+          'Fullstack Web Development',
+          'Next.js',
+          'React',
+          'TypeScript',
+          'Tailwind CSS',
+          'Laravel',
+          'Flutter',
+          'Internet of Things (IoT)',
+          'ESP32',
+        ],
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Yogyakarta',
+          addressCountry: 'ID',
+        },
+      },
+      {
+        '@type': 'WebSite',
+        '@id': 'https://reyhanalbar.vercel.app/#website',
+        url: 'https://reyhanalbar.vercel.app',
+        name: `${PROFILE.fullName} — Official Tech Portfolio`,
+        description:
+          'Situs portofolio resmi Reyhan Albar Fahryan: Mahasiswa Informatika UNU Yogyakarta, Web Development Intern Creativemu Academy, Fullstack & IoT Developer.',
+        publisher: {
+          '@id': 'https://reyhanalbar.vercel.app/#person',
+        },
+        inLanguage: ['id', 'en'],
+      },
+    ],
   };
 
   // Duplicate projects for seamless infinite marquee loop
@@ -89,6 +135,82 @@ export default function HomePage() {
               </details>
             ))}
           </ExperienceAccordion>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="awards-title"
+        className="home-curtain reveal border-t border-border py-16 md:py-24"
+      >
+        <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 text-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-xs font-medium text-primary">
+              <span className="size-1.5 rounded-full bg-emerald-400" />
+              {locale === 'id' ? 'Pengakuan & Prestasi Kampus' : 'Honors & Campus Recognition'}
+            </span>
+            <h2 id="awards-title" className="mt-3 text-h2 font-bold">
+              <span>{locale === 'id' ? 'Prestasi & Liputan Publikasi' : 'Awards & Media Publications'}</span>
+            </h2>
+            <p className="mx-auto mt-2 max-w-xl text-sm text-muted">
+              {locale === 'id'
+                ? 'Rekam jejak kompetisi nasional, riset inovasi mahasiswa UNU Yogyakarta, dan publikasi media.'
+                : 'National competitions track record, UNU Yogyakarta student research innovations, and media coverage.'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {AWARDS_AND_PUBLICATIONS.map((award) => (
+              <div
+                key={award.id}
+                className="flex flex-col justify-between rounded-xl border border-border bg-surface p-6 transition-all hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="rounded-full border border-primary/20 bg-primary/5 px-2.5 py-0.5 font-mono text-[11px] font-medium text-primary">
+                      {award.badge[locale]}
+                    </span>
+                    <span className="font-mono text-xs text-muted">{award.year}</span>
+                  </div>
+                  <h3 className="mt-3 text-base font-semibold leading-snug text-text">
+                    {award.title[locale]}
+                  </h3>
+                  <p className="mt-1 font-mono text-xs text-muted">
+                    {award.issuer[locale]}
+                  </p>
+                  <p className="mt-3 text-xs leading-relaxed text-muted">
+                    {award.summary[locale]}
+                  </p>
+                </div>
+
+                {award.url && (
+                  <div className="mt-5 border-t border-border/50 pt-3">
+                    <a
+                      href={award.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
+                    >
+                      <span>{award.sourceLabel || (locale === 'id' ? 'Lihat Berita Terbit' : 'View Publication')}</span>
+                      <svg
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="size-3"
+                      >
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                      </svg>
+                    </a>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

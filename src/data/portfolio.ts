@@ -44,6 +44,18 @@ export interface SkillItem {
   desc: { id: string; en: string };
 }
 
+export interface PublicationAwardItem {
+  id: string;
+  title: { id: string; en: string };
+  issuer: { id: string; en: string };
+  year: string;
+  category: { id: string; en: string };
+  badge: { id: string; en: string };
+  summary: { id: string; en: string };
+  url?: string;
+  sourceLabel?: string;
+}
+
 export const PROFILE = {
   fullName: 'Reyhan Albar Fahryan',
   firstNamePrefix: 'Rey',
@@ -241,6 +253,83 @@ export const EXPERIENCES: ExperienceItem[] = [
         'Actively developing applied research and academic projects across full-stack web, mobile, and Internet of Things (IoT).',
         'Maintaining strong academic standing while collaborating in campus engineering communities.',
       ],
+    },
+  },
+];
+
+export const AWARDS_AND_PUBLICATIONS: PublicationAwardItem[] = [
+  {
+    id: 'hut-tegal-425',
+    title: {
+      id: 'Pemenang 6 Terbaik Sayembara Desain Logo HUT ke-425 Kabupaten Tegal ("Tegal Luwih Apik")',
+      en: 'Top 6 Winner — 425th Tegal Regency Anniversary Logo Design Competition ("Tegal Luwih Apik")',
+    },
+    issuer: {
+      id: 'Pemerintah Kabupaten Tegal & Dinas Kominfo Kab. Tegal',
+      en: 'Government of Tegal Regency & Communications Dept.',
+    },
+    year: '2025',
+    category: {
+      id: 'Penghargaan & Sayembara Publik',
+      en: 'Public Competition & Award',
+    },
+    badge: {
+      id: 'Top 6 Finalis Nasional (UNUYO)',
+      en: 'Top 6 National Winner (UNUYO)',
+    },
+    summary: {
+      id: 'Terpilih sebagai salah satu nomine dan pemenang 6 besar karya desain logo resmi dari ratusan peserta tingkat umum nasional, mewakili identitas civitas akademika Universitas Nahdlatul Ulama Yogyakarta (UNUYO).',
+      en: 'Selected as one of the top 6 national winners out of hundreds of open participants, representing the academic community of Universitas Nahdlatul Ulama Yogyakarta (UNUYO).',
+    },
+    url: 'https://ayotegal.com',
+    sourceLabel: 'AyoTegal / Pikiran Rakyat Network & Slawi FM News',
+  },
+  {
+    id: 'smart-iot-research',
+    title: {
+      id: 'Pengembangan Ekosistem NIRANA & Rekayasa Proposal IoT Pertanian',
+      en: 'NIRANA Smart IoT Ecosystem & AgriTech Innovation Proposal',
+    },
+    issuer: {
+      id: 'Riset Mandiri Informatika UNU Yogyakarta & Kelompok Tani',
+      en: 'Informatics Research Initiative & AgriTech Community',
+    },
+    year: '2025 — 2026',
+    category: {
+      id: 'Inovasi Rekayasa Perangkat Keras & Lunak',
+      en: 'Hardware & Software Engineering',
+    },
+    badge: {
+      id: 'IoT & Telemetri Sensor',
+      en: 'IoT & Sensor Telemetry',
+    },
+    summary: {
+      id: 'Riset terapan mikrokontroler ESP32, sinkronisasi data cloud real-time Firebase, serta integrasi aplikasi mobile Flutter untuk automasi dan efisiensi operasional.',
+      en: 'Applied ESP32 microcontroller research with real-time Firebase cloud sync and Flutter mobile integration for telemetry and field automation.',
+    },
+  },
+  {
+    id: 'creativemu-platform',
+    title: {
+      id: 'Pengembangan Platform Pembelajaran Web Interaktif Laravel Bootcamp',
+      en: 'Interactive Laravel Bootcamp Learning Platform Engineering',
+    },
+    issuer: {
+      id: 'Creativemu Academy',
+      en: 'Creativemu Academy',
+    },
+    year: '2026',
+    category: {
+      id: 'Magang Industri Web Development',
+      en: 'Industry Web Internship',
+    },
+    badge: {
+      id: 'Active Intern',
+      en: 'Active Intern',
+    },
+    summary: {
+      id: 'Pengembangan arsitektur landing page dan modul registrasi Bootcamp berskala produksi menggunakan ekosistem Laravel, Tailwind CSS, dan Next.js.',
+      en: 'Architected high-performance production landing pages and enrollment workflows for developer bootcamp programs using Laravel and Next.js.',
     },
   },
 ];
